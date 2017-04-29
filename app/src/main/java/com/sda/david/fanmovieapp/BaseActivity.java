@@ -1,5 +1,7 @@
 package com.sda.david.fanmovieapp;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.sda.david.fanmovieapp.movies.MovieFragment;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -78,21 +82,34 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_movies) {
-
+            Fragment fragment = MovieFragment.newInstance();
+            commitFragment(fragment, MovieFragment.TAG);
         } else if (id == R.id.nav_favorites) {
 
         } else if (id == R.id.nav_top10) {
 
         } else if (id == R.id.nav_register) {
 
+        } else if (id == R.id.nav_logout) {
+
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void commitFragment(Fragment fragment, String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_content, fragment, tag)
+                .addToBackStack(tag)
+                .commitAllowingStateLoss();
     }
 }
