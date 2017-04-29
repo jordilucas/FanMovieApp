@@ -17,8 +17,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sda.david.fanmovieapp.administration.AdministrationFragment;
+import com.sda.david.fanmovieapp.favorites.FavoritesFragment;
 import com.sda.david.fanmovieapp.login.LoginActivity;
 import com.sda.david.fanmovieapp.movies.MovieFragment;
+import com.sda.david.fanmovieapp.top10.Top10Fragment;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -91,11 +94,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             Fragment fragment = MovieFragment.newInstance();
             commitFragment(fragment, MovieFragment.TAG);
         } else if (id == R.id.nav_favorites) {
-
+            Fragment fragment = FavoritesFragment.newInstance();
+            commitFragment(fragment, FavoritesFragment.TAG);
         } else if (id == R.id.nav_top10) {
-
+            Fragment fragment = Top10Fragment.newInstance();
+            commitFragment(fragment, Top10Fragment.TAG);
         } else if (id == R.id.nav_register) {
-
+            Fragment fragment = AdministrationFragment.newInstance();
+            commitFragment(fragment, AdministrationFragment.TAG);
         } else if (id == R.id.nav_logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
