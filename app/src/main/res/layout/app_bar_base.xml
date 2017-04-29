@@ -21,12 +21,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        tools:context=".view.BaseActivity"
+        tools:showIn="@layout/app_bar_base"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <!--<include layout="@layout/content_base" />-->
 
