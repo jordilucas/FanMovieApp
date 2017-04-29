@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FanMovieApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <!--Navigation View-->
+    <string name="nav_movies_title">Filmes</string>
+    <string name="nav_favorites_title">Favoritos</string>
+    <string name="nav_top10_title">Top 10</string>
+    <string name="nav_register_title">Cadastrar</string>
+
+
+</resources>
