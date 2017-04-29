@@ -21,7 +21,7 @@ public class Movie {
     private String releaseDate;
 
     @SerializedName("genre_ids")
-    private Set<Long> genreDds;
+    private Set<Long> genreIds;
 
     private long id;
 
@@ -44,6 +44,25 @@ public class Movie {
     @SerializedName("vote_average")
     private float voteAverage;
 
+    public Movie() {
+    }
+
+    public Movie(String posterPath, String overview, String releaseDate, Set<Long> genreIds, long id, String originalTitle, String originalLanguage, String title, String backdropPath, float popularity, long voteCount, float voteAverage) {
+
+        this.posterPath = posterPath;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.genreIds = genreIds;
+        this.id = id;
+        this.originalTitle = originalTitle;
+        this.originalLanguage = originalLanguage;
+        this.title = title;
+        this.backdropPath = backdropPath;
+        this.popularity = popularity;
+        this.voteCount = voteCount;
+        this.voteAverage = voteAverage;
+    }
+
     public Long get_id() {
         return _id;
     }
@@ -60,8 +79,8 @@ public class Movie {
         return releaseDate;
     }
 
-    public Set<Long> getGenreDds() {
-        return genreDds;
+    public Set<Long> getGenreIds() {
+        return genreIds;
     }
 
     public long getId() {
