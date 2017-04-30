@@ -50,6 +50,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Fragment fragment = MovieFragment.newInstance();
+        commitFragment(fragment, MovieFragment.TAG);
+
     }
 
     @Override
