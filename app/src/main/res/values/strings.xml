@@ -14,4 +14,10 @@
     <string name="nav_register_title">Cadastrar</string>
     <string name="nav_logout_title">Sair</string>
 
+    <!--Login Screen-->
+    <string name="login_hint">Login</string>
+    <string name="password_hint">Password</string>
+    <string name="text_login_button">LOGIN</string>
+
+
 </resources>
