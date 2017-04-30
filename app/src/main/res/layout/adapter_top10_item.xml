@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:id="@+id/main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="@color/gray"
-    android:layout_height="200dp">
+    android:layout_marginBottom="2dp"
+    android:layout_height="180dp">
 
     <ImageView
         android:id="@+id/iv_movie_poster"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="150dp"
-        android:layout_gravity="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@null"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_movie_poster"
+        android:layout_toEndOf="@+id/iv_movie_poster"
+        android:paddingTop="20dp"
+        android:orientation="vertical"
+        android:layout_alignTop="@+id/iv_movie_poster"
+        android:layout_alignBottom="@+id/iv_movie_poster">
 
         <TextView
             android:id="@+id/tv_movie_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            />
 
-        <LinearLayout
-            android:id="@+id/ll_movie_note"
+        <TextView
+            android:id="@+id/tv_movie_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_camera"/>
-
-            <TextView
-                android:id="@+id/tv_movie_note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_movie_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:drawableLeft="@mipmap/ic_star"
+            android:drawableStart="@mipmap/ic_star"
+            />
 
     </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_arrow_right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@null"
+        />
+
+</RelativeLayout>

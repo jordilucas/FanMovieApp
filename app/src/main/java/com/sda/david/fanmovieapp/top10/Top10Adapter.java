@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.util.MovieGenre;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,22 +51,39 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
 
         String urlMoviePoster = "!";
 
-        if(movieList.get(position) != null && movieList.get(position).getPosterPath() != null)
-            urlMoviePoster = movieList.get(position).getPosterPath();
+        Movie currentMovie = movieList.get(position);
 
-        if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
-            urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
+        if(currentMovie != null) {
+            if(currentMovie.getPosterPath() != null)
+                urlMoviePoster = currentMovie.getPosterPath();
 
-        Picasso
-            .with(ctx)
-            .load(urlMoviePoster)
-            .into(holder.ivMoviePoster);
+            if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
+                urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
-        if(movieList.get(position) != null && movieList.get(position).getTitle() != null)
-            holder.tvMovieTitle.setText(movieList.get(position).getTitle());
+            Picasso
+                    .with(ctx)
+                    .load(urlMoviePoster)
+                    .into(holder.ivMoviePoster);
 
-        if(movieList.get(position) != null && movieList.get(position).getVoteAverage() != 0f)
-            holder.tvMovieNote.setText(String.valueOf(movieList.get(position).getVoteAverage()));
+            if(currentMovie.getTitle() != null)
+                holder.tvMovieTitle.setText(currentMovie.getTitle());
+
+            if(currentMovie.getGenreIds() != null) {
+                String genres = "(";
+
+                for(Long genreId : movieList.get(position).getGenreIds()) {
+                    genres += MovieGenre.getGenreNameById(genreId) + ", ";
+                }
+                genres = genres.substring(0, genres.length() - 2) + ")";
+                holder.tvMovieGenres.setText(genres);
+            }
+
+            if(currentMovie.getVoteAverage() != 0f)
+                holder.tvMovieNote.setText(String.valueOf(movieList.get(position).getVoteAverage()));
+
+        }
+
+
     }
 
     @Override
@@ -75,17 +93,19 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        LinearLayout mainLayout;
+        RelativeLayout mainLayout;
         ImageView ivMoviePoster;
         TextView tvMovieTitle;
+        TextView tvMovieGenres;
         TextView tvMovieNote;
 
         MovieViewHolder(View itemView) {
             super(itemView);
 
-            mainLayout = (LinearLayout) itemView.findViewById(R.id.main_layout);
+            mainLayout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
             tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
+            tvMovieGenres = (TextView) itemView.findViewById(R.id.tv_movie_genres);
             tvMovieNote = (TextView) itemView.findViewById(R.id.tv_movie_note);
         }
     }
