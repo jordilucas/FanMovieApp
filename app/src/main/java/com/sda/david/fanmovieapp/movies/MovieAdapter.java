@@ -47,8 +47,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.mainLayout.setOnClickListener(mClickListener);
         holder.mainLayout.setId(position);
 
-        String urlMoviePoster = movieList.get(position).getPosterPath();
-        if(urlMoviePoster != null && urlMoviePoster.charAt(0) == '/')
+        String urlMoviePoster = "!";
+
+        if(movieList.get(position) != null && movieList.get(position).getPosterPath() != null)
+            urlMoviePoster = movieList.get(position).getPosterPath();
+
+        if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
             urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
         Picasso
@@ -56,8 +60,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             .load(urlMoviePoster)
             .into(holder.ivMoviePoster);
 
-        holder.tvMovieTitle.setText(movieList.get(position).getTitle());
-        holder.tvMovieNote.setText(String.valueOf(movieList.get(position).getVoteAverage()));
+        if(movieList.get(position) != null && movieList.get(position).getTitle() != null)
+            holder.tvMovieTitle.setText(movieList.get(position).getTitle());
+
+        if(movieList.get(position) != null && movieList.get(position).getVoteAverage() != 0f)
+            holder.tvMovieNote.setText(String.valueOf(movieList.get(position).getVoteAverage()));
     }
 
     @Override
