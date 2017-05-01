@@ -27,10 +27,23 @@ public class User {
     public User() {
     }
 
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public User(String name, String userName, String password, Set<Long> favoritesMovies, boolean administrator) {
         this.name = name;
         this.userName = userName;
         this.password = password;
+        this.favoritesMovies = favoritesMovies;
+        this.administrator = administrator;
+    }
+
+    public User(Long id, String name, String userName, Set<Long> favoritesMovies, boolean administrator) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
         this.favoritesMovies = favoritesMovies;
         this.administrator = administrator;
     }
