@@ -15,9 +15,18 @@
     <string name="nav_logout_title">Sair</string>
 
     <!--Login Screen-->
+    <string name="login_name">Nome</string>
     <string name="login_hint">Login</string>
-    <string name="password_hint">Password</string>
+    <string name="password_hint">Senha</string>
+    <string name="confirm_password_hint">Confirme a senha</string>
     <string name="text_login_button">LOGIN</string>
+    <string name="text_signuo_button">SIGNUP</string>
 
+    <!--SignUp Error-->
+    <string name="empty_name">O campo nome não deve estar vazio</string>
+    <string name="empty_login">O campo login não deve estar vazio</string>
+    <string name="empty_password">O campo senha não deve estar vazio</string>
+    <string name="empty_confirm_password">O campo confirmar senha não deve estar vazio</string>
+    <string name="password_not_compatible">Os campos de senha e confirmar senha devem ser iguais</string>
 
 </resources>
