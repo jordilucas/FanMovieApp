@@ -2,7 +2,6 @@ package com.sda.david.fanmovieapp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,10 @@ import android.widget.EditText;
 
 import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
+import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by david on 29/04/2017.
@@ -21,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     PagerAdapter adapter;
+    private CirclePageIndicator mContentIntroIndicator;
 
     private EditText etLogin;
     private EditText etPassword;
@@ -28,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btRegister;
 
     private String[] phrasesIntro;
+    Timer timer;
+    int page = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initComponents() {
         viewPager = (ViewPager) findViewById(R.id.vp_login);
+        mContentIntroIndicator = (CirclePageIndicator) findViewById(R.id.cpi_login_intro_indicator);
 
         etLogin = (EditText) findViewById(R.id.et_login);
         etPassword = (EditText) findViewById(R.id.et_password);
@@ -52,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 
         adapter = new LoginViewPageAdapter(this, phrasesIntro);
         viewPager.setAdapter(adapter);
+        mContentIntroIndicator.notifyDataSetChanged();
+        mContentIntroIndicator.setViewPager(viewPager);
+        pageSwitcher(4);
     }
 
     private View.OnClickListener onClickListener() {
@@ -77,6 +87,35 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
+//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
         finish();
+    }
+
+    public void pageSwitcher(int seconds) {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000);
+    }
+
+    class RemindTask extends TimerTask {
+
+        @Override
+        public void run() {
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+
+                    if (page > 2) {
+                        page = 0;
+                        viewPager.setCurrentItem(page);
+                        timer.cancel();
+                        timer = new Timer();
+                        timer.scheduleAtFixedRate(new RemindTask(), 0, 4 * 1000);
+                    } else {
+                        viewPager.setCurrentItem(page++);
+                    }
+                }
+            });
+
+        }
     }
 }
