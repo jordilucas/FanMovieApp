@@ -41,4 +41,7 @@ public interface UserService {
     @GET(URL_USER_FAVORITES)
     Call<List<Movie>> findFavorites(@Query("id") Long id);
 
+    @POST(URL_USER_LOGIN)
+    Call<User> loginUser(@Body User user);
+
 }
