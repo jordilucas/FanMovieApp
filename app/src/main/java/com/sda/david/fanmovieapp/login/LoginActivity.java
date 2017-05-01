@@ -2,6 +2,7 @@ package com.sda.david.fanmovieapp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,14 +23,12 @@ import java.util.TimerTask;
 
 public class LoginActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    PagerAdapter adapter;
+    private ViewPager viewPager;
+    private PagerAdapter adapter;
     private CirclePageIndicator mContentIntroIndicator;
-
-    private EditText etLogin;
-    private EditText etPassword;
-    private Button btLogin;
-    private Button btRegister;
+    private TabLayout mTabLayout;
+    private ViewPager contentViewPager;
+    private ContentViewPagerAdapter contentAdapter;
 
     private String[] phrasesIntro;
     Timer timer;
@@ -49,47 +48,27 @@ public class LoginActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.vp_login);
         mContentIntroIndicator = (CirclePageIndicator) findViewById(R.id.cpi_login_intro_indicator);
 
-        etLogin = (EditText) findViewById(R.id.et_login);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        btLogin = (Button) findViewById(R.id.bt_login);
-        btRegister = (Button) findViewById(R.id.bt_register);
-
-        btLogin.setOnClickListener(onClickListener());
-        btRegister.setOnClickListener(onClickListener());
-
         adapter = new LoginViewPageAdapter(this, phrasesIntro);
         viewPager.setAdapter(adapter);
         mContentIntroIndicator.notifyDataSetChanged();
         mContentIntroIndicator.setViewPager(viewPager);
         pageSwitcher(4);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tl_login_options);
+        contentViewPager = (ViewPager) findViewById(R.id.vp_login_content);
+        contentAdapter = new ContentViewPagerAdapter(getSupportFragmentManager(), this);
+        contentViewPager.setAdapter(contentAdapter);
+        mTabLayout.setupWithViewPager(contentViewPager);
+        updateTabs();
     }
 
-    private View.OnClickListener onClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.bt_login:
-                        login();
-                        break;
-
-                    case R.id.bt_register:
-                        break;
-
-                }
-            }
-        };
+    private void updateTabs() {
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) tab.setCustomView(contentAdapter.getTabView(i));
+        }
     }
 
-    private void login() {
-        String login = etLogin.getText().toString();
-        String password = etPassword.getText().toString();
-
-        Intent intent = new Intent(this, BaseActivity.class);
-        startActivity(intent);
-//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
-        finish();
-    }
 
     public void pageSwitcher(int seconds) {
         timer = new Timer();

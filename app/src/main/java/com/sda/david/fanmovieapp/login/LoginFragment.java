@@ -1,5 +1,6 @@
 package com.sda.david.fanmovieapp.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 
 /**
@@ -61,6 +63,10 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 int position = view.getId();
                 Log.d(TAG, "onClick: " + position);
+                Intent intent = new Intent(getContext(), BaseActivity.class);
+                startActivity(intent);
+//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
+                getActivity().finish();
             }
         };
     }

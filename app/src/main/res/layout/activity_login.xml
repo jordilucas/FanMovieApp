@@ -2,15 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="28dp"
-    android:paddingRight="28dp"
     >
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_login"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="180dp"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="-36dp"
         android:layout_marginRight="-36dp"
@@ -26,50 +23,21 @@
         app:radius="6dp"
         />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        >
-
-        <EditText
-            android:id="@+id/et_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="@string/login_hint"
-            android:drawableRight="@drawable/ic_person_black"
-            android:drawableEnd="@drawable/ic_person_black"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/password_hint"
-            android:drawableRight="@drawable/ic_lock_black"
-            android:drawableEnd="@drawable/ic_lock_black"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/bt_login"
-        android:text="@string/text_login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/bt_register"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_login_options"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabTextColor="@android:color/black"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabIndicatorColor="@android:color/holo_blue_dark" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_login_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
