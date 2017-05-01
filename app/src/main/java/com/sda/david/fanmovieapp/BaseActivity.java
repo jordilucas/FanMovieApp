@@ -123,6 +123,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager.beginTransaction()
                 .replace(R.id.main_content, fragment, tag)
                 .addToBackStack(tag)
+//                .setCustomAnimations(
+//                        R.anim.card_flip_right_in,
+//                        R.anim.card_flip_right_out,
+//                        R.anim.card_flip_left_in,
+//                        R.anim.card_flip_left_out)
+//                .setCustomAnimations(R.anim.res_anim_fadein, R.anim.res_anim_fadeout)
                 .commitAllowingStateLoss();
     }
 }

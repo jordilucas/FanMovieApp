@@ -1,15 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="28dp"
     android:paddingRight="28dp"
     >
 
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_login"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-36dp"
+        android:layout_marginRight="-36dp"
+        />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/cpi_login_intro_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:fillColor="#8EBE51"
+        app:pageColor="#FFFFFF"
+        app:radius="6dp"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
