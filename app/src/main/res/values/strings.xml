@@ -29,4 +29,7 @@
     <string name="empty_confirm_password">O campo confirmar senha não deve estar vazio</string>
     <string name="password_not_compatible">Os campos de senha e confirmar senha devem ser iguais</string>
 
+    <!--Request Error-->
+    <string name="something_went_wrong">Aconteceu algum erro inesperado, por favor tente novamente</string>
+
 </resources>
