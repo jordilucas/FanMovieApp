@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 
@@ -20,7 +19,6 @@ import com.sda.david.fanmovieapp.R;
 public class SignupFragment extends Fragment {
 
     public static final String TAG = "FavoriteFrag";
-    private static final String ARG_1 = "arg_1";
 
     private EditText etName;
     private EditText etLogin;
@@ -28,25 +26,8 @@ public class SignupFragment extends Fragment {
     private EditText etConfirmPassword;
     private Button btSignup;
 
-    private boolean arg1;
-
     public static SignupFragment newInstance() {
-        SignupFragment fragment = new SignupFragment();
-        Bundle bundle = new Bundle();
-        //Put arguments
-        boolean arg1 = true;
-        bundle.putBoolean(ARG_1, arg1);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if(getArguments() != null) {
-            arg1 = getArguments().getBoolean(ARG_1);
-        }
+        return new SignupFragment();
     }
 
     @Nullable
