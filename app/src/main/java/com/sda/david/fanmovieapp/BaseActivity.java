@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             Fragment fragment = MovieFragment.newInstance();
             commitFragment(fragment, MovieFragment.TAG);
         } else if (id == R.id.nav_favorites) {
-            Fragment fragment = FavoritesFragment.newInstance();
+            Fragment fragment = FavoritesFragment.newInstance(user);
             commitFragment(fragment, FavoritesFragment.TAG);
         } else if (id == R.id.nav_top10) {
             Fragment fragment = Top10Fragment.newInstance();

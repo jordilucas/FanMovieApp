@@ -1,12 +1,12 @@
 package com.sda.david.fanmovieapp.favorites;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,9 @@ import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.UserService;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,20 +33,18 @@ import retrofit2.Response;
 public class FavoritesFragment extends Fragment {
 
     public static final String TAG = "FavoriteFrag";
-    private static final String ARG_1 = "arg_1";
-
-    private boolean arg1;
+    private static final String ARG_USER = "arg_user";
 
     RecyclerView rvMovies;
+    private ProgressDialog dialog;
 
+    private User user;
     List<Movie> movies;
 
-    public static FavoritesFragment newInstance() {
+    public static FavoritesFragment newInstance(User user) {
         FavoritesFragment fragment = new FavoritesFragment();
         Bundle bundle = new Bundle();
-        //Put arguments
-        boolean arg1 = true;
-        bundle.putBoolean(ARG_1, arg1);
+        bundle.putParcelable(ARG_USER, user);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,7 +54,7 @@ public class FavoritesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-            arg1 = getArguments().getBoolean(ARG_1);
+            user = getArguments().getParcelable(ARG_USER);
         }
     }
 
@@ -73,6 +73,10 @@ public class FavoritesFragment extends Fragment {
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
         rvMovies.setLayoutManager(mLinearLayoutManager);
 
+        dialog = new ProgressDialog(getContext());
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+
         userListFavorites();
 
     }
@@ -87,29 +91,32 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int position = view.getId();
-                Log.d(TAG, "onClick: " + position);
             }
         };
     }
 
     private void userListFavorites() {
-        Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites((long) 44);
+        dialog.setMessage(getString(R.string.loding_login));
+        dialog.show();
+        Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites(user.getId());
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                dialog.dismiss();
                 if(response.isSuccessful()) {
                     movies = response.body();
                     movies.removeAll(Collections.<Movie>singleton(null));
                     fillScreen();
                 } else {
-                    Log.d(TAG, "onError: ");
+                    ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                Log.d(TAG, "onFailure: ");
+                dialog.dismiss();
+                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
             }
         });
     }
