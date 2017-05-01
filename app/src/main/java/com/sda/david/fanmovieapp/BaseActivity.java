@@ -20,10 +20,15 @@ import android.view.MenuItem;
 import com.sda.david.fanmovieapp.administration.AdministrationFragment;
 import com.sda.david.fanmovieapp.favorites.FavoritesFragment;
 import com.sda.david.fanmovieapp.login.LoginActivity;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieFragment;
 import com.sda.david.fanmovieapp.top10.Top10Fragment;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String ARG_USER = "arg_user";
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(savedInstanceState != null) {
+            user = savedInstanceState.getParcelable(ARG_USER);
+        }
 
         Fragment fragment = MovieFragment.newInstance();
         commitFragment(fragment, MovieFragment.TAG);
