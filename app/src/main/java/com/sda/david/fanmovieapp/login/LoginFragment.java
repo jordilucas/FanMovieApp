@@ -84,12 +84,11 @@ public class LoginFragment extends Fragment {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                dialog.dismiss();
                 if(response.isSuccessful()) {
-                    dialog.dismiss();
                     callHomeScreen(response.body());
                 } else {
                     //TODO verificar quando der code 401
-                    dialog.dismiss();
                     ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
                 }
             }

@@ -37,11 +37,10 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public User(String name, String userName, String password, List<Long> favoritesMovies, boolean administrator) {
+    public User(String name, String userName, String password,  boolean administrator) {
         this.name = name;
         this.userName = userName;
         this.password = password;
-        this.favoritesMovies = favoritesMovies;
         this.administrator = administrator;
     }
 
@@ -69,9 +68,9 @@ public class User implements Parcelable {
         return password;
     }
 
-//    public List<Long> getFavoritesMovies() {
-//        return favoritesMovies;
-//    }
+    public List<Long> getFavoritesMovies() {
+        return favoritesMovies;
+    }
 
     public boolean isAdministrator() {
         return administrator;

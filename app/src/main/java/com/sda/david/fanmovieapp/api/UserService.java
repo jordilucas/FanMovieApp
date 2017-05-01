@@ -26,9 +26,6 @@ public interface UserService {
     @GET(URL_USER_FIND_ALL)
     Call<List<User>> findAll();
 
-    @POST(URL_USER_ADD)
-    Call<User> addUser(@Body User user);
-
     @POST(URL_USER_REMOVE)
     Call<String> removeMovie(@Query("id") Long id);
 
@@ -43,5 +40,8 @@ public interface UserService {
 
     @POST(URL_USER_LOGIN)
     Call<User> loginUser(@Body User user);
+
+    @POST(URL_USER_SIGNUP)
+    Call<User> signupUser(@Body User user);
 
 }

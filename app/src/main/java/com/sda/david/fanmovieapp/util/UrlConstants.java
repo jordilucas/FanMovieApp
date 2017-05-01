@@ -16,11 +16,11 @@ public class UrlConstants {
     //User
     public static final String URL_USER_ONE = "/user/";
     public static final String URL_USER_FIND_ALL = "/user/list";
-    public static final String URL_USER_ADD = "/user/add";
     public static final String URL_USER_REMOVE = "/user/remove";
     public static final String URL_USER_ADD_FAVORITE = "/user/add_favorite";
     public static final String URL_USER_REMOVE_FAVORITE = "/user/remove_favorite";
     public static final String URL_USER_FAVORITES = "/user/favorites";
     public static final String URL_USER_LOGIN = "/user/login";
+    public static final String URL_USER_SIGNUP = "/user/add";
 
 }

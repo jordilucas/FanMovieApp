@@ -1,16 +1,26 @@
 package com.sda.david.fanmovieapp.login;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
+import com.sda.david.fanmovieapp.api.ServiceGenerator;
+import com.sda.david.fanmovieapp.api.UserService;
+import com.sda.david.fanmovieapp.model.User;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by david on 01/05/2017.
@@ -25,6 +35,7 @@ public class SignupFragment extends Fragment {
     private EditText etPassword;
     private EditText etConfirmPassword;
     private Button btSignup;
+    private ProgressDialog dialog;
 
     public static SignupFragment newInstance() {
         return new SignupFragment();
@@ -53,16 +64,52 @@ public class SignupFragment extends Fragment {
             }
         });
 
+        dialog = new ProgressDialog(getContext());
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+
     }
 
     private void signUp() {
 
         if(verifyFields()) {
-            Log.d(TAG, "permitido");
-        } else {
-            Log.d(TAG, "não permitido");
+            requestSignup();
         }
 
+    }
+
+    private void requestSignup() {
+        dialog.setMessage(getString(R.string.loding_signup));
+        dialog.show();
+        User user = new User(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), true);
+        Call<User> call = ServiceGenerator.createService(UserService.class).signupUser(user);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                dialog.dismiss();
+                if(response.isSuccessful()) {
+                    callHomeScreen(response.body());
+                } else {
+                    //TODO verificar quando der code 401
+                    ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                dialog.dismiss();
+                ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+            }
+        });
+    }
+
+    private void callHomeScreen(User user) {
+
+        Intent intent = new Intent(getContext(), BaseActivity.class);
+        intent.putExtra(BaseActivity.ARG_USER, user);
+        startActivity(intent);
+//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
+        getActivity().finish();
     }
 
     private boolean verifyFields() {
