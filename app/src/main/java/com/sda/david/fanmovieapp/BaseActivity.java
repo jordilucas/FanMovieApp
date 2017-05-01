@@ -55,8 +55,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState != null) {
-            user = savedInstanceState.getParcelable(ARG_USER);
+        if(getIntent() != null) {
+            user = getIntent().getParcelableExtra(ARG_USER);
         }
 
         Fragment fragment = MovieFragment.newInstance();
