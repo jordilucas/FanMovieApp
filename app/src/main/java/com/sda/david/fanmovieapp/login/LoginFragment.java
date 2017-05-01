@@ -18,8 +18,8 @@ import com.sda.david.fanmovieapp.api.UserService;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,13 +69,15 @@ public class LoginFragment extends Fragment {
     }
 
     private void login() {
-        if(verifyFields()) {
-            requestLogin();
-        }
+        //TODO remover após testes
+        callHomeScreen(null);
+//        if(verifyFields()) {
+//            requestLogin();
+//        }
     }
 
     private void requestLogin() {
-        dialog.setMessage("Carregando exercício...");
+        dialog.setMessage(getString(R.string.loding_login));
         dialog.show();
         User user = new User(etLogin.getText().toString(), etPassword.getText().toString());
         Call<User> call = ServiceGenerator.createService(UserService.class).loginUser(user);
@@ -84,8 +86,9 @@ public class LoginFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()) {
                     dialog.dismiss();
-                    callHomeScreen();
+                    callHomeScreen(response.body());
                 } else {
+                    //TODO verificar quando der code 401
                     dialog.dismiss();
                     ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
                 }
@@ -99,13 +102,13 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void callHomeScreen() {
+    private void callHomeScreen(User user) {
 
         //TODO remover após testes
-        Set<Long> idFavorites = new HashSet<>();
+        List<Long> idFavorites = new ArrayList<>();
         idFavorites.add((long) 10);
         idFavorites.add((long) 11);
-        User user = new User((long) 1, "David", "david.dmr", idFavorites, false);
+        User user2 = new User((long) 1, "David", "david.dmr", idFavorites, false);
 
         Intent intent = new Intent(getContext(), BaseActivity.class);
         intent.putExtra(BaseActivity.ARG_USER, user);

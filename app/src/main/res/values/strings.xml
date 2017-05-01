@@ -21,6 +21,7 @@
     <string name="confirm_password_hint">Confirme a senha</string>
     <string name="text_login_button">LOGIN</string>
     <string name="text_signuo_button">SIGNUP</string>
+    <string name="loding_login">Realizando login…</string>
 
     <!--SignUp Error-->
     <string name="empty_name">O campo nome não deve estar vazio</string>
