@@ -1,5 +1,6 @@
 package com.sda.david.fanmovieapp.top10;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.sda.david.fanmovieapp.api.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
+import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -86,7 +88,10 @@ public class Top10Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int position = view.getId();
-                Log.d(TAG, "onClick: " + position);
+
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                startActivity(intent);
             }
         };
     }
