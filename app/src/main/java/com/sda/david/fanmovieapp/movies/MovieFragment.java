@@ -1,8 +1,10 @@
 package com.sda.david.fanmovieapp.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,7 +86,15 @@ public class MovieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int position = view.getId();
-                Log.d(TAG, "onClick: " + position);
+
+                Fragment fragment = MovieDetailFragment.newInstance();
+                FragmentManager fragmentManager = getFragmentManager();
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_content, fragment, MovieDetailFragment.TAG)
+                        .addToBackStack(MovieDetailFragment.TAG)
+                        .commitAllowingStateLoss();
+
             }
         };
     }
