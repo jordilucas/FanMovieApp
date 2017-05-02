@@ -1,14 +1,19 @@
 package com.sda.david.fanmovieapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by david on 29/04/2017.
  */
 
-public class Movie {
+public class Movie implements Parcelable {
 
     private Long _id;
 
@@ -21,7 +26,7 @@ public class Movie {
     private String releaseDate;
 
     @SerializedName("genre_ids")
-    private Set<Long> genreIds;
+    private List<Long> genreIds;
 
     private long id;
 
@@ -47,7 +52,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String posterPath, String overview, String releaseDate, Set<Long> genreIds, long id, String originalTitle, String originalLanguage, String title, String backdropPath, float popularity, long voteCount, float voteAverage) {
+    public Movie(String posterPath, String overview, String releaseDate, List<Long> genreIds, long id, String originalTitle, String originalLanguage, String title, String backdropPath, float popularity, long voteCount, float voteAverage) {
 
         this.posterPath = posterPath;
         this.overview = overview;
@@ -79,7 +84,7 @@ public class Movie {
         return releaseDate;
     }
 
-    public Set<Long> getGenreIds() {
+    public List<Long> getGenreIds() {
         return genreIds;
     }
 
@@ -114,4 +119,56 @@ public class Movie {
     public float getVoteAverage() {
         return voteAverage;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this._id);
+        dest.writeString(this.posterPath);
+        dest.writeString(this.overview);
+        dest.writeString(this.releaseDate);
+        dest.writeList(this.genreIds);
+        dest.writeLong(this.id);
+        dest.writeString(this.originalTitle);
+        dest.writeString(this.originalLanguage);
+        dest.writeString(this.title);
+        dest.writeString(this.backdropPath);
+        dest.writeFloat(this.popularity);
+        dest.writeLong(this.voteCount);
+        dest.writeFloat(this.voteAverage);
+    }
+
+    protected Movie(Parcel in) {
+        this._id = (Long) in.readValue(Long.class.getClassLoader());
+        this.posterPath = in.readString();
+        this.overview = in.readString();
+        this.releaseDate = in.readString();
+        this.genreIds = new ArrayList<Long>();
+        in.readList(this.genreIds, Long.class.getClassLoader());
+        this.id = in.readLong();
+        this.originalTitle = in.readString();
+        this.originalLanguage = in.readString();
+        this.title = in.readString();
+        this.backdropPath = in.readString();
+        this.popularity = in.readFloat();
+        this.voteCount = in.readLong();
+        this.voteAverage = in.readFloat();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
