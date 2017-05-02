@@ -55,7 +55,7 @@ public class MovieDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_movies, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         initComponents(rootView);
 
         return rootView;
