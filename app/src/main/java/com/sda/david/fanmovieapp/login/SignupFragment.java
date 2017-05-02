@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class SignupFragment extends Fragment {
     private EditText etLogin;
     private EditText etPassword;
     private EditText etConfirmPassword;
+    private SwitchCompat switchAdm;
     private Button btSignup;
     private ProgressDialog dialog;
 
@@ -63,6 +66,7 @@ public class SignupFragment extends Fragment {
                 signUp();
             }
         });
+        switchAdm = (SwitchCompat) rootView.findViewById(R.id.switch_adm);
 
         dialog = new ProgressDialog(getContext());
         dialog.setIndeterminate(true);
@@ -81,7 +85,7 @@ public class SignupFragment extends Fragment {
     private void requestSignup() {
         dialog.setMessage(getString(R.string.loding_signup));
         dialog.show();
-        User user = new User(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), true);
+        User user = new User(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), switchAdm.isChecked());
         Call<User> call = ServiceGenerator.createService(UserService.class).signupUser(user);
         call.enqueue(new Callback<User>() {
             @Override
