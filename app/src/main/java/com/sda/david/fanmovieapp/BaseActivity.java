@@ -1,6 +1,7 @@
 package com.sda.david.fanmovieapp;
 
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.sda.david.fanmovieapp.top10.Top10Fragment;
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String ARG_USER = "arg_user";
+    public static AppBarLayout mainAppbar;
 
     private User user;
 
@@ -58,6 +60,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if(getIntent() != null) {
             user = getIntent().getParcelableExtra(ARG_USER);
         }
+
+        mainAppbar = (AppBarLayout) findViewById(R.id.main_appbarlayout);
+        mainAppbar.setVisibility(View.GONE);
 
         Fragment fragment = MovieFragment.newInstance();
         commitFragment(fragment, MovieFragment.TAG);
