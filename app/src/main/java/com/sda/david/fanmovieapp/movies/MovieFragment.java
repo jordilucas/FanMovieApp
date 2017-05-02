@@ -87,13 +87,9 @@ public class MovieFragment extends Fragment {
             public void onClick(View view) {
                 int position = view.getId();
 
-                Fragment fragment = MovieDetailFragment.newInstance();
-                FragmentManager fragmentManager = getFragmentManager();
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_content, fragment, MovieDetailFragment.TAG)
-                        .addToBackStack(MovieDetailFragment.TAG)
-                        .commitAllowingStateLoss();
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                startActivity(intent);
 
             }
         };
