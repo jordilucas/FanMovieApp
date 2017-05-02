@@ -59,6 +59,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             user = getIntent().getParcelableExtra(ARG_USER);
         }
 
+        navigationView.getMenu().getItem(0).setChecked(true);
+
         Fragment fragment = MovieFragment.newInstance();
         commitFragment(fragment, MovieFragment.TAG);
     }
