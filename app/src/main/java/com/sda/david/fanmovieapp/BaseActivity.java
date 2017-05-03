@@ -18,11 +18,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sda.david.fanmovieapp.administration.AdministrationFragment;
+import com.sda.david.fanmovieapp.api.ServiceGenerator;
+import com.sda.david.fanmovieapp.api.UserService;
 import com.sda.david.fanmovieapp.favorites.FavoritesFragment;
 import com.sda.david.fanmovieapp.login.LoginActivity;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieFragment;
 import com.sda.david.fanmovieapp.top10.Top10Fragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -116,9 +122,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             Fragment fragment = AdministrationFragment.newInstance();
             commitFragment(fragment, AdministrationFragment.TAG);
         } else if (id == R.id.nav_logout) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            logout();
         }
 
 
@@ -140,5 +144,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 //                        R.anim.card_flip_left_out)
 //                .setCustomAnimations(R.anim.res_anim_fadein, R.anim.res_anim_fadeout)
                 .commitAllowingStateLoss();
+    }
+
+    private void logout() {
+
+        Call<Void> call = ServiceGenerator.createService(UserService.class).logoutUser();
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {}
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {}
+        });
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

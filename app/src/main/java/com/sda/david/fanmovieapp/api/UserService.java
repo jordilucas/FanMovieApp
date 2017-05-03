@@ -44,4 +44,7 @@ public interface UserService {
     @POST(URL_USER_SIGNUP)
     Call<User> signupUser(@Body User user);
 
+    @GET(URL_USER_LOGOUT)
+    Call<Void> logoutUser();
+
 }

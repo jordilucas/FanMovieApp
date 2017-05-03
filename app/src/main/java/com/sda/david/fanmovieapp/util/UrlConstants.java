@@ -21,6 +21,7 @@ public class UrlConstants {
     public static final String URL_USER_REMOVE_FAVORITE = "/user/remove_favorite";
     public static final String URL_USER_FAVORITES = "/user/favorites";
     public static final String URL_USER_LOGIN = "/user/login";
-    public static final String URL_USER_SIGNUP = "/user/add";
+    public static final String URL_USER_SIGNUP = "/user/signup";
+    public static final String URL_USER_LOGOUT = "/user/logout";
 
 }
