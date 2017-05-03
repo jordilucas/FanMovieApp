@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by david on 29/04/2017.
@@ -19,8 +18,7 @@ public class User implements Parcelable {
 
     private String name;
 
-    @SerializedName("user_name")
-    private String userName;
+    private String username;
 
     private String password;
 
@@ -32,22 +30,22 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public User(String userName, String password) {
-        this.userName = userName;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public User(String name, String userName, String password,  boolean administrator) {
+    public User(String name, String username, String password, boolean administrator) {
         this.name = name;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.administrator = administrator;
     }
 
-    public User(Long id, String name, String userName, List<Long> favoritesMovies, boolean administrator) {
+    public User(Long id, String name, String username, List<Long> favoritesMovies, boolean administrator) {
         this.id = id;
         this.name = name;
-        this.userName = userName;
+        this.username = username;
         this.favoritesMovies = favoritesMovies;
         this.administrator = administrator;
     }
@@ -60,8 +58,8 @@ public class User implements Parcelable {
         return name;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -86,7 +84,7 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.userName);
+        dest.writeString(this.username);
         dest.writeString(this.password);
         dest.writeList(this.favoritesMovies);
         dest.writeByte(this.administrator ? (byte) 1 : (byte) 0);
@@ -95,7 +93,7 @@ public class User implements Parcelable {
     protected User(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.name = in.readString();
-        this.userName = in.readString();
+        this.username = in.readString();
         this.password = in.readString();
         this.favoritesMovies = new ArrayList<Long>();
         in.readList(this.favoritesMovies, Long.class.getClassLoader());
