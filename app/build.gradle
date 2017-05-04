@@ -38,5 +38,8 @@ dependencies {
     //ViewPagerIndicator
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
 
+    //CarouselLayoutManager
+    compile 'com.azoft.carousellayoutmanager:carousel:1.2.1'
+
     testCompile 'junit:junit:4.12'
 }
