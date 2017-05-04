@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
@@ -83,6 +85,8 @@ public class MovieFragment extends Fragment {
         spinner = (Spinner) rootView.findViewById(R.id.spinner_genre_movie);
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
+//        final CarouselLayoutManager mLinearLayoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
+//        mLinearLayoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
         rvMovies.setLayoutManager(mLinearLayoutManager);
 
