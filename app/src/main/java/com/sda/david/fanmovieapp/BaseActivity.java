@@ -23,6 +23,7 @@ import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.favorites.FavoritesFragment;
 import com.sda.david.fanmovieapp.login.LoginActivity;
 import com.sda.david.fanmovieapp.model.User;
+import com.sda.david.fanmovieapp.movie_genre.MovieGenreFragment;
 import com.sda.david.fanmovieapp.movies.MovieFragment;
 import com.sda.david.fanmovieapp.top10.Top10Fragment;
 
@@ -112,6 +113,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_movies) {
             Fragment fragment = MovieFragment.newInstance();
             commitFragment(fragment, MovieFragment.TAG);
+        } else if (id == R.id.nav_movies_by_genre) {
+            Fragment fragment = MovieGenreFragment.newInstance();
+            commitFragment(fragment, MovieGenreFragment.TAG);
         } else if (id == R.id.nav_favorites) {
             Fragment fragment = FavoritesFragment.newInstance(user);
             commitFragment(fragment, FavoritesFragment.TAG);

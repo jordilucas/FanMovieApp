@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static final String API_BASE_URL_DEVELOPMENT = "http://192.168.0.102:8080";
+    private static final String API_BASE_URL_DEVELOPMENT = "http://192.168.1.217:8080";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
