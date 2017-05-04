@@ -15,7 +15,7 @@ import android.widget.EditText;
 import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
-import com.sda.david.fanmovieapp.api.UserService;
+import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 

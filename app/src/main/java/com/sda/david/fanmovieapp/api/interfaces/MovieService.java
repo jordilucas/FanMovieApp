@@ -1,4 +1,4 @@
-package com.sda.david.fanmovieapp.api;
+package com.sda.david.fanmovieapp.api.interfaces;
 
 import com.sda.david.fanmovieapp.model.Movie;
 

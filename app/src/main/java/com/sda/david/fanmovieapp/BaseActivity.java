@@ -19,7 +19,7 @@ import android.view.MenuItem;
 
 import com.sda.david.fanmovieapp.administration.AdministrationFragment;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
-import com.sda.david.fanmovieapp.api.UserService;
+import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.favorites.FavoritesFragment;
 import com.sda.david.fanmovieapp.login.LoginActivity;
 import com.sda.david.fanmovieapp.model.User;

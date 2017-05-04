@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
-import com.sda.david.fanmovieapp.api.UserService;
+import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
