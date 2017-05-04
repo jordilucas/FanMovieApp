@@ -16,9 +16,12 @@ import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.model.MovieTypeItem;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
+import com.sda.david.fanmovieapp.util.MovieGenre;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -79,9 +82,42 @@ public class MovieGenreFragment extends Fragment {
     }
 
     private void updateAdapter(List<Movie> movies) {
-        MovieGenreAdapter adapter = new MovieGenreAdapter(getContext(), movies, movieClickListener());
+        List<Long> genresIds = MovieGenre.getGenresIdList();
+
+        List<MovieTypeItem> movieTypeItemList = new ArrayList<>();
+        MovieTypeItem movieTypeItem;
+
+        for(Long genreId : genresIds) {
+            //Getting name of current genre
+            String genreName = MovieGenre.getGenreNameById(genreId);
+
+            //Getting list of movies by current genre
+            List<Movie> moviesByGenre = getMoviesByGenre(movies, genreId);
+
+            //Filling list of items to external recyclerView
+            if(!moviesByGenre.isEmpty()) {
+                movieTypeItem = new MovieTypeItem(genreName, MovieTypeItem.Type.TITLE);
+                movieTypeItemList.add(movieTypeItem);
+                movieTypeItem = new MovieTypeItem(moviesByGenre, MovieTypeItem.Type.CONTENT);
+                movieTypeItemList.add(movieTypeItem);
+            }
+        }
+
+        MovieGenreAdapter adapter = new MovieGenreAdapter(getContext(), movieTypeItemList, movieClickListener());
         rvMoviesGenre.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    private List<Movie> getMoviesByGenre(List<Movie> movies, Long genreId) {
+        List<Movie> moviesByGenre = new ArrayList<>();
+
+        for(Movie movie : movies) {
+            if(movie.getGenreIds().contains(genreId)) {
+                moviesByGenre.add(movie);
+            }
+        }
+
+        return moviesByGenre;
     }
 
     private View.OnClickListener movieClickListener() {
