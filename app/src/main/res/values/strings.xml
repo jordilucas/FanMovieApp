@@ -25,6 +25,9 @@
     <string name="loding_signup">Realizando cadastro…</string>
     <string name="switch_adm">Administrador ?</string>
 
+    <!--Login Error-->
+    <string name="invalid_login_or_password">Usuário e/ou senha inválidos. Verifique o usuário e senha e tente novamente</string>
+
     <!--SignUp Error-->
     <string name="empty_name">O campo nome não deve estar vazio</string>
     <string name="empty_login">O campo login não deve estar vazio</string>
@@ -33,6 +36,8 @@
     <string name="password_not_compatible">Os campos de senha e confirmar senha devem ser iguais</string>
 
     <!--Request Error-->
+    <string name="unavailable_server">Servidor Indisponível</string>
+    <string name="not_found_server">Não foi possível conectar com o servidor.</string>
     <string name="something_went_wrong">Aconteceu algum erro inesperado, por favor tente novamente</string>
 
     <string name="large_text">
