@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.util.MovieGenre;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -25,9 +26,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView ivMoviePoster;
     TextView tvReleaseDate;
     TextView tvOriginalLanguage;
-    TextView tvTitleMovieOriginalTitle;
+    TextView tvGenres;
     TextView tvMovieOriginalTitle;
-    TextView tvTitleMovieOverview;
     TextView tvMovieOverview;
     ImageView ivMovieStar1;
     ImageView ivMovieStar2;
@@ -74,9 +74,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_backdrop);
         tvReleaseDate = (TextView) findViewById(R.id.tv_release_date);
         tvOriginalLanguage = (TextView) findViewById(R.id.tv_original_language);
-        tvTitleMovieOriginalTitle = (TextView) findViewById(R.id.tv_title_movie_original_title);
+        tvGenres = (TextView) findViewById(R.id.tv_genres);
         tvMovieOriginalTitle = (TextView) findViewById(R.id.tv_movie_original_title);
-        tvTitleMovieOverview = (TextView) findViewById(R.id.tv_title_movie_overview);
         tvMovieOverview = (TextView) findViewById(R.id.tv_movie_overview);
         ivMovieStar1 = (ImageView) findViewById(R.id.iv_movie_star1);
         ivMovieStar2 = (ImageView) findViewById(R.id.iv_movie_star2);
@@ -122,20 +121,30 @@ public class MovieDetailActivity extends AppCompatActivity {
             else
                 tvOriginalLanguage.setVisibility(View.GONE);
 
-            verifyVote();
+            if(!movie.getGenreIds().isEmpty()) {
+                String genres = "(";
 
-            if(movie.getOriginalTitle() != null)
-                tvMovieOriginalTitle.setText(movie.getOriginalTitle());
-            else {
-                tvTitleMovieOriginalTitle.setVisibility(View.GONE);
-                tvMovieOriginalTitle.setVisibility(View.GONE);
+                for(Long genreId : movie.getGenreIds()) {
+                    genres += MovieGenre.getGenreNameById(genreId) + ", ";
+                }
+                genres = genres.substring(0, genres.length() - 2) + ")";
+                tvGenres.setText(genres);
+            } else {
+                tvGenres.setVisibility(View.GONE);
             }
 
-            if(movie.getOverview() != null)
+            verifyVote();
+
+            if(!movie.getOriginalTitle().equals(""))
+                tvMovieOriginalTitle.setText(movie.getOriginalTitle());
+            else {
+                tvMovieOriginalTitle.setText(getString(R.string.not_registered));
+            }
+
+            if(!movie.getOverview().equals(""))
                 tvMovieOverview.setText(movie.getOverview());
             else {
-                tvTitleMovieOverview.setVisibility(View.GONE);
-                tvMovieOverview.setVisibility(View.GONE);
+                tvMovieOverview.setText(getString(R.string.not_registered));
             }
 
         } else {

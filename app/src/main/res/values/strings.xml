@@ -32,6 +32,7 @@
     <!--Movie Detail Screen-->
     <string name="original_title">Título original:</string>
     <string name="overview">Sinopse:</string>
+    <string name="not_registered">Não cadastrado</string>
 
     <!--Errors-->
 
