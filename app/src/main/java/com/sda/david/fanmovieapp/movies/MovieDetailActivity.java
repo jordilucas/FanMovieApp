@@ -23,7 +23,18 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     ImageView ivMoviePoster;
+    TextView tvReleaseDate;
+    TextView tvOriginalLanguage;
+    TextView tvTitleMovieOriginalTitle;
+    TextView tvMovieOriginalTitle;
+    TextView tvTitleMovieOverview;
     TextView tvMovieOverview;
+    ImageView ivMovieStar1;
+    ImageView ivMovieStar2;
+    ImageView ivMovieStar3;
+    ImageView ivMovieStar4;
+    ImageView ivMovieStar5;
+    FloatingActionButton fab;
 
     private Movie movie;
 
@@ -61,8 +72,19 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void initComponents() {
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_backdrop);
+        tvReleaseDate = (TextView) findViewById(R.id.tv_release_date);
+        tvOriginalLanguage = (TextView) findViewById(R.id.tv_original_language);
+        tvTitleMovieOriginalTitle = (TextView) findViewById(R.id.tv_title_movie_original_title);
+        tvMovieOriginalTitle = (TextView) findViewById(R.id.tv_movie_original_title);
+        tvTitleMovieOverview = (TextView) findViewById(R.id.tv_title_movie_overview);
         tvMovieOverview = (TextView) findViewById(R.id.tv_movie_overview);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        ivMovieStar1 = (ImageView) findViewById(R.id.iv_movie_star1);
+        ivMovieStar2 = (ImageView) findViewById(R.id.iv_movie_star2);
+        ivMovieStar3 = (ImageView) findViewById(R.id.iv_movie_star3);
+        ivMovieStar4 = (ImageView) findViewById(R.id.iv_movie_star4);
+        ivMovieStar5 = (ImageView) findViewById(R.id.iv_movie_star5);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +110,33 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .load(urlMoviePoster)
                     .into(ivMoviePoster);
 
-            tvMovieOverview.setText(movie.getOverview());
+            if(movie.getReleaseDate() != null) {
+                String []realeaseDateSplited = movie.getReleaseDate().split("-");
+                if(realeaseDateSplited.length > 0)
+                    tvReleaseDate.setText(realeaseDateSplited[0]);
+            }else
+                tvReleaseDate.setVisibility(View.GONE);
+
+            if(movie.getOriginalLanguage() != null)
+                tvOriginalLanguage.setText(movie.getOriginalLanguage());
+            else
+                tvOriginalLanguage.setVisibility(View.GONE);
+
+            verifyVote();
+
+            if(movie.getOriginalTitle() != null)
+                tvMovieOriginalTitle.setText(movie.getOriginalTitle());
+            else {
+                tvTitleMovieOriginalTitle.setVisibility(View.GONE);
+                tvMovieOriginalTitle.setVisibility(View.GONE);
+            }
+
+            if(movie.getOverview() != null)
+                tvMovieOverview.setText(movie.getOverview());
+            else {
+                tvTitleMovieOverview.setVisibility(View.GONE);
+                tvMovieOverview.setVisibility(View.GONE);
+            }
 
         } else {
             finish();
@@ -98,6 +146,108 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void verifyVote() {
+        Float note = movie.getVoteAverage();
+
+        if(note == 0) {
+            fillStarsVote(
+                R.mipmap.ic_star_border_black_18dp,
+                R.mipmap.ic_star_border_black_18dp,
+                R.mipmap.ic_star_border_black_18dp,
+                R.mipmap.ic_star_border_black_18dp,
+                R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(0 < note && note <= 1) {
+            fillStarsVote(
+                    R.mipmap.ic_star_half_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(1 < note && note <= 2) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(2 < note && note <= 3) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_half_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(3 < note && note <= 4) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(4 < note && note <= 5) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_half_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(5 < note && note <= 6) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(6 < note && note <= 7) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_half_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(7 < note && note <= 8) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(8 < note && note <= 9) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_half_black_18dp,
+                    R.mipmap.ic_star_border_black_18dp
+            );
+        } else if(9 < note && note <= 10) {
+            fillStarsVote(
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp,
+                    R.mipmap.ic_star_black_18dp
+            );
+        }
+    }
+
+    private void fillStarsVote(int imageStar1, int imageStar2, int imageStar3, int imageStar4, int imageStar5) {
+        ivMovieStar1.setImageResource(imageStar1);
+        ivMovieStar2.setImageResource(imageStar2);
+        ivMovieStar3.setImageResource(imageStar3);
+        ivMovieStar4.setImageResource(imageStar4);
+        ivMovieStar5.setImageResource(imageStar5);
     }
 
 }

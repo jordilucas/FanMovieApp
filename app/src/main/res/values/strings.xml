@@ -28,6 +28,10 @@
     <!--Movie List Screen-->
     <string name="search_the_movie">Busque o filme</string>
 
+    <!--Movie Detail Screen-->
+    <string name="original_title">Título original:</string>
+    <string name="overview">Sinopse:</string>
+
     <!--Errors-->
 
     <!--Login Error-->
