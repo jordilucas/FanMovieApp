@@ -59,11 +59,11 @@ public class MovieGenreAdapter extends RecyclerView.Adapter<MovieGenreAdapter.Mo
             titleViewHolder.tvGenreTitle.setText(movieTypeItems.get(position).getGenreTitle());
         } else {
             ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-            contentViewHolder.rvMoviesGenreInsider.setHasFixedSize(true);
-//            final CarouselLayoutManager mLinearLayoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
-//            mLinearLayoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
-            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(ctx);
-            mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            contentViewHolder.rvMoviesGenreInsider.setHasFixedSize(false);
+            final CarouselLayoutManager mLinearLayoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
+            mLinearLayoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+//            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(ctx);
+//            mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             contentViewHolder.rvMoviesGenreInsider.setLayoutManager(mLinearLayoutManager);
             MovieGenreInternalAdapter adapter = new MovieGenreInternalAdapter(ctx, movieTypeItems.get(position).getMovies(), mClickListener);
             contentViewHolder.rvMoviesGenreInsider.setAdapter(adapter);

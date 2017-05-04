@@ -36,7 +36,7 @@ public class MovieGenreInternalAdapter extends RecyclerView.Adapter<MovieGenreIn
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.adapter_movie_item, parent, false);
+        View view = mLayoutInflater.inflate(R.layout.adapter_movie_genre_item, parent, false);
 
         return new MovieViewHolder(view);
     }
