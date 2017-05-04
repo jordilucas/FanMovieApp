@@ -39,6 +39,31 @@ public class MovieGenre {
         return map.get((int) genreCode);
     }
 
+    public static List<Long> getGenresIdList() {
+        List<Long> genresIds = new ArrayList<>();
+        genresIds.add((long) 28);
+        genresIds.add((long) 12);
+        genresIds.add((long) 16);
+        genresIds.add((long) 35);
+        genresIds.add((long) 80);
+        genresIds.add((long) 99);
+        genresIds.add((long) 18);
+        genresIds.add((long) 10751);
+        genresIds.add((long) 14);
+        genresIds.add((long) 36);
+        genresIds.add((long) 27);
+        genresIds.add((long) 10402);
+        genresIds.add((long) 9648);
+        genresIds.add((long) 10749);
+        genresIds.add((long) 878);
+        genresIds.add((long) 10770);
+        genresIds.add((long) 53);
+        genresIds.add((long) 10752);
+        genresIds.add((long) 37);
+
+        return genresIds;
+    }
+
     public static List<String> getGenresNamesLst() {
         List<String> genres = new ArrayList<>();
         genres.add("Ação");
