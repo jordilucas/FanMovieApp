@@ -22,7 +22,16 @@
                 android:id="@+id/sv_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/spinner_genre_movie"
+                android:layout_toStartOf="@+id/spinner_genre_movie"
                 />
+
+            <Spinner
+                android:id="@+id/spinner_genre_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 

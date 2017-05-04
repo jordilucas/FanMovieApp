@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.util.MovieGenre;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +41,11 @@ public class MovieFragment extends Fragment {
     private boolean arg1;
 
     SearchView svMovie;
+    Spinner spinner;
     RecyclerView rvMovies;
 
     List<Movie> movies;
+    List<String> genresList;
 
     public static MovieFragment newInstance() {
         MovieFragment fragment = new MovieFragment();
@@ -74,10 +80,29 @@ public class MovieFragment extends Fragment {
         svMovie.setQueryHint(getString(R.string.search_the_movie));
         svMovie.setIconifiedByDefault(false);
         svMovie.setOnQueryTextListener(onQueryTextListener());
+        spinner = (Spinner) rootView.findViewById(R.id.spinner_genre_movie);
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
         rvMovies.setLayoutManager(mLinearLayoutManager);
+
+        genresList = MovieGenre.getGenresNamesLst();
+        genresList.add(0, "Gênero");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, genresList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if(position != 0)
+                    Log.d(TAG, "onItemSelected: " + genresList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         findAllMovies();
 

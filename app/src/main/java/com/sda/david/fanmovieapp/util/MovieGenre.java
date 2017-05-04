@@ -2,7 +2,9 @@ package com.sda.david.fanmovieapp.util;
 
 import android.util.SparseArray;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by david on 30/04/2017.
@@ -35,6 +37,37 @@ public class MovieGenre {
         map.put(37, "Faroeste");
 
         return map.get((int) genreCode);
+    }
+
+    public static List<String> getGenresNamesLst() {
+        List<String> genres = new ArrayList<>();
+        genres.add("Ação");
+        genres.add("Aventura");
+        genres.add("Animação");
+        genres.add("Comédia");
+        genres.add("Crime");
+        genres.add("Documentário");
+        genres.add("Drama");
+        genres.add("Família");
+        genres.add("Fantasia");
+        genres.add("História");
+        genres.add("Terror");
+        genres.add("Música");
+        genres.add("Mistério");
+        genres.add("Romance");
+        genres.add("Ficção científica");
+        genres.add("Cinema TV");
+        genres.add("Thriller");
+        genres.add("Guerra");
+        genres.add("Faroeste");
+
+        return genres;
+    }
+
+    public static String[] getGenresNamesStr() {
+
+        return new String[]{"Ação", "Aventura", "Animação", "Comédia", "Crime", "Documentário", "Drama", "Família", "Fantasia",
+                "História", "Terror", "Música", "Mistério", "Romance", "Ficção científica", "Cinema TV", "Thriller", "Guerra", "Faroeste"};
     }
 
 }
