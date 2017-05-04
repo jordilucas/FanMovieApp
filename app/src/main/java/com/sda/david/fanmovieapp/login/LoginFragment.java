@@ -69,18 +69,16 @@ public class LoginFragment extends Fragment {
     }
 
     private void login() {
-        //TODO remover após testes
-        callHomeScreen(null);
-//        if(verifyFields()) {
-//            requestLogin();
-//        }
+        if(verifyFields()) {
+            requestLogin();
+        }
     }
 
     private void requestLogin() {
         dialog.setMessage(getString(R.string.loding_login));
         dialog.show();
         User user = new User(etLogin.getText().toString(), etPassword.getText().toString());
-        Call<User> call = ServiceGenerator.createService(UserService.class).loginUser(user);
+        Call<User> call = ServiceGenerator.createService(UserService.class, user.getUsername(), user.getPassword()).loginUser(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -88,8 +86,15 @@ public class LoginFragment extends Fragment {
                 if(response.isSuccessful()) {
                     callHomeScreen(response.body());
                 } else {
-                    //TODO verificar quando der code 401
-                    ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                    if (response.code() == 501) {
+                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.unavailable_server));
+                    } else if (response.code() == 503) {
+                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.not_found_server));
+                    } else if (response.code() == 401) {
+                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.invalid_login_or_password));
+                    } else {
+                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                    }
                 }
             }
 
@@ -102,12 +107,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void callHomeScreen(User user) {
-
-        //TODO remover após testes
-        List<Long> idFavorites = new ArrayList<>();
-        idFavorites.add((long) 10);
-        idFavorites.add((long) 11);
-        User user2 = new User((long) 1, "David", "david.dmr", idFavorites, false);
 
         Intent intent = new Intent(getContext(), BaseActivity.class);
         intent.putExtra(BaseActivity.ARG_USER, user);
