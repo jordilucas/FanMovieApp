@@ -25,6 +25,11 @@
     <string name="loding_signup">Realizando cadastro…</string>
     <string name="switch_adm">Administrador ?</string>
 
+    <!--Movie List Screen-->
+    <string name="search_the_movie">Busque o filme</string>
+
+    <!--Errors-->
+
     <!--Login Error-->
     <string name="invalid_login_or_password">Usuário e/ou senha inválidos. Verifique o usuário e senha e tente novamente</string>
 

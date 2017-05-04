@@ -9,13 +9,24 @@
         android:id="@+id/search_edit_frame"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
+
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.SearchView
-            android:id="@+id/sv_movie"
+        <RelativeLayout
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:queryHint="Diga o filme"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/sv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+
 
     </android.support.design.widget.AppBarLayout>
 

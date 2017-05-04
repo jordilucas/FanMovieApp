@@ -71,6 +71,8 @@ public class MovieFragment extends Fragment {
 
     private void initComponents(View rootView) {
         svMovie = (SearchView) rootView.findViewById(R.id.sv_movie);
+        svMovie.setQueryHint(getString(R.string.search_the_movie));
+        svMovie.setIconifiedByDefault(false);
         svMovie.setOnQueryTextListener(onQueryTextListener());
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
