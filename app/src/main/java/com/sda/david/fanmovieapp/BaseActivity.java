@@ -85,7 +85,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_right_menu, menu);
+//        getMenuInflater().inflate(R.menu.main_right_menu, menu);
         return true;
     }
 
@@ -97,7 +97,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_favorite) {
             return true;
         }
 
