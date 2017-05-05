@@ -46,6 +46,7 @@ public class MovieFragment extends Fragment {
     RecyclerView rvMovies;
 
     List<Movie> movies;
+    List<Movie> moviesToShow;
 
     public static MovieFragment newInstance(User user) {
         MovieFragment fragment = new MovieFragment();
@@ -99,14 +100,16 @@ public class MovieFragment extends Fragment {
         return new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                updateAdapter(returnSearchMovieList(query));
+                moviesToShow = returnSearchMovieList(query);
+                updateAdapter(moviesToShow);
 
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                updateAdapter(returnSearchMovieList(newText));
+                moviesToShow = returnSearchMovieList(newText);
+                updateAdapter(moviesToShow);
 
                 return false;
             }
@@ -139,7 +142,7 @@ public class MovieFragment extends Fragment {
                 int position = view.getId();
 
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, moviesToShow.get(position));
                 intent.putExtra(MovieDetailActivity.ARG_USER, user);
                 startActivity(intent);
 
@@ -153,8 +156,8 @@ public class MovieFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 if(response.isSuccessful()) {
-                    movies = response.body();
-                    updateAdapter(movies);
+                    moviesToShow = movies = response.body();
+                    updateAdapter(moviesToShow);
                 } else {
                     Log.d(TAG, "onError: ");
                 }
