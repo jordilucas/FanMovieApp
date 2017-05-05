@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -70,7 +71,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().getItem(0).setChecked(true);
 
 //        if(!user.isAdministrator())
-//            hideItem();
+            hideItem();
 
         Fragment fragment = MovieFragment.newInstance(user);
         commitFragment(fragment, MovieFragment.TAG);
@@ -92,11 +93,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 //        return true;
 //    }
 
-//    private void hideItem()
-//    {
-//        Menu nav_Menu = navigationView.getMenu();
-//        nav_Menu.findItem(R.id.nav_register).setVisible(false);
-//    }
+    private void hideItem()
+    {
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_register).setVisible(false);
+    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
