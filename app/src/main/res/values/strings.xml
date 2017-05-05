@@ -23,12 +23,15 @@
     <string name="confirm_password_hint">Confirme a senha</string>
     <string name="text_login_button">LOGIN</string>
     <string name="text_signuo_button">SIGNUP</string>
-    <string name="loding_login">Realizando login…</string>
-    <string name="loding_signup">Realizando cadastro…</string>
+    <string name="loading_login">Realizando login…</string>
+    <string name="loading_signup">Realizando cadastro…</string>
     <string name="switch_adm">Administrador ?</string>
 
     <!--Movie List Screen-->
     <string name="search_the_movie">Busque o filme</string>
+
+    <!--Movie Favorite List Screen-->
+    <string name="loading_favorites">Carregando os seus favoritos…</string>
 
     <!--Movie Detail Screen-->
     <string name="original_title">Título original:</string>
@@ -46,6 +49,12 @@
     <string name="empty_password">O campo senha não deve estar vazio</string>
     <string name="empty_confirm_password">O campo confirmar senha não deve estar vazio</string>
     <string name="password_not_compatible">Os campos de senha e confirmar senha devem ser iguais</string>
+
+    <!--Movie Detail Screen Error-->
+    <string name="favorite_added">Filme adicionado aos favoritos</string>
+    <string name="favorite_not_added">Ocorreu algum erro ao tentar adicionar o filme aos seus favoritos</string>
+    <string name="favorite_removed">Filme removido dos favoritos</string>
+    <string name="favorite_not_removed">Ocorreu algum erro ao tentar remover o filme dos seus favoritos</string>
 
     <!--Request Error-->
     <string name="unavailable_server">Servidor Indisponível</string>
