@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
@@ -107,6 +108,14 @@ public class MovieFragment extends Fragment {
 
         findAllMovies();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Updating user after actions in MovieDetailAct
+        //After put db, change this way do update
+        user = BaseActivity.user;
     }
 
     private SearchView.OnQueryTextListener onQueryTextListener() {

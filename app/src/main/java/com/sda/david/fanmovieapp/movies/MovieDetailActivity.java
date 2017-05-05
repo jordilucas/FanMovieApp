@@ -200,12 +200,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void toogleFavorite() {
-        List<Long> favoriteIds = user.getFavoritesMovies();
-        if(favoriteIds.contains(movie.get_id())) {
-            favoriteIds.remove(movie.get_id());
+        if(user.getFavoritesMovies().contains(movie.get_id())) {
+            user.getFavoritesMovies().remove(movie.get_id());
             removeFavorite();
         } else {
-            favoriteIds.add(movie.get_id());
+            user.getFavoritesMovies().add(movie.get_id());
             addFavorite();
         }
 
