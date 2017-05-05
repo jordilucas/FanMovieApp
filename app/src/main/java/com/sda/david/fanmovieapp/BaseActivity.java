@@ -35,6 +35,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     public static final String ARG_USER = "arg_user";
 
+    NavigationView navigationView;
+
     private User user;
 
     @Override
@@ -59,7 +61,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         if(getIntent() != null) {
@@ -67,6 +69,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
 
         navigationView.getMenu().getItem(0).setChecked(true);
+
+        if(!user.isAdministrator())
+            hideItem();
 
         Fragment fragment = MovieFragment.newInstance();
         commitFragment(fragment, MovieFragment.TAG);
@@ -87,6 +92,12 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.main_right_menu, menu);
         return true;
+    }
+
+    private void hideItem()
+    {
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_register).setVisible(false);
     }
 
     @Override
