@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.MovieGenre;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
 public class MovieDetailActivity extends AppCompatActivity {
 
     public static final String ARG_MOVIE = "arg_movie";
+    public static final String ARG_USER = "arg_user";
 
     CollapsingToolbarLayout mCollapsingToolbarLayout;
     ImageView ivMoviePoster;
@@ -39,6 +41,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     FloatingActionButton fab;
 
     private Movie movie;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         if(getIntent() != null) {
             movie = getIntent().getParcelableExtra(ARG_MOVIE);
+            user = getIntent().getParcelableExtra(ARG_USER);
         }
 
         setupToolbar();

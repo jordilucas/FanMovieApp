@@ -1,6 +1,7 @@
 package com.sda.david.fanmovieapp.favorites;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
+import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.Collections;
@@ -91,6 +93,11 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int position = view.getId();
+
+                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_USER, user);
+                startActivity(intent);
             }
         };
     }

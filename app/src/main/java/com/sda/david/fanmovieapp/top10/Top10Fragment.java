@@ -15,6 +15,7 @@ import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 
 import java.util.Collections;
@@ -31,20 +32,18 @@ import retrofit2.Response;
 public class Top10Fragment extends Fragment {
 
     public static final String TAG = "Top10Frag";
-    private static final String ARG_1 = "arg_1";
+    private static final String ARG_USER = "arg_user";
 
-    private boolean arg1;
+    private User user;
 
     RecyclerView rvMovies;
 
     List<Movie> movies;
 
-    public static Top10Fragment newInstance() {
+    public static Top10Fragment newInstance(User user) {
         Top10Fragment fragment = new Top10Fragment();
         Bundle bundle = new Bundle();
-        //Put arguments
-        boolean arg1 = true;
-        bundle.putBoolean(ARG_1, arg1);
+        bundle.putParcelable(ARG_USER, user);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,7 +53,7 @@ public class Top10Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-            arg1 = getArguments().getBoolean(ARG_1);
+            user = getArguments().getParcelable(ARG_USER);
         }
     }
 
@@ -89,6 +88,7 @@ public class Top10Fragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
                 intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_USER, user);
                 startActivity(intent);
             }
         };

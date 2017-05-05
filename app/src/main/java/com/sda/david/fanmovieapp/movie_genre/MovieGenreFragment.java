@@ -17,6 +17,7 @@ import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.MovieTypeItem;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieAdapter;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 import com.sda.david.fanmovieapp.util.MovieGenre;
@@ -35,20 +36,18 @@ import retrofit2.Response;
 public class MovieGenreFragment extends Fragment {
 
     public static final String TAG = "MovieGenreFrag";
-    private static final String ARG_1 = "arg_1";
+    private static final String ARG_USER = "arg_user";
 
-    private boolean arg1;
+    private User user;
 
     RecyclerView rvMoviesGenre;
 
     List<Movie> movies;
 
-    public static MovieGenreFragment newInstance() {
+    public static MovieGenreFragment newInstance(User user) {
         MovieGenreFragment fragment = new MovieGenreFragment();
         Bundle bundle = new Bundle();
-        //Put arguments
-        boolean arg1 = true;
-        bundle.putBoolean(ARG_1, arg1);
+        bundle.putParcelable(ARG_USER, user);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -58,7 +57,7 @@ public class MovieGenreFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-            arg1 = getArguments().getBoolean(ARG_1);
+            user = getArguments().getParcelable(ARG_USER);
         }
     }
 
@@ -128,6 +127,7 @@ public class MovieGenreFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
                 intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_USER, user);
                 startActivity(intent);
 
             }

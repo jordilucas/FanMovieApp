@@ -16,12 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.azoft.carousellayoutmanager.CarouselLayoutManager;
-import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.MovieGenre;
 
 import java.util.ArrayList;
@@ -38,9 +37,9 @@ import retrofit2.Response;
 public class MovieFragment extends Fragment {
 
     public static final String TAG = "MovieFrag";
-    private static final String ARG_1 = "arg_1";
+    private static final String ARG_USER = "arg_user";
 
-    private boolean arg1;
+    private User user;
 
     SearchView svMovie;
     Spinner spinner;
@@ -49,12 +48,10 @@ public class MovieFragment extends Fragment {
     List<Movie> movies;
     List<String> genresList;
 
-    public static MovieFragment newInstance() {
+    public static MovieFragment newInstance(User user) {
         MovieFragment fragment = new MovieFragment();
         Bundle bundle = new Bundle();
-        //Put arguments
-        boolean arg1 = true;
-        bundle.putBoolean(ARG_1, arg1);
+        bundle.putParcelable(ARG_USER, user);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -64,7 +61,7 @@ public class MovieFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(getArguments() != null) {
-            arg1 = getArguments().getBoolean(ARG_1);
+            user = getArguments().getParcelable(ARG_USER);
         }
     }
 
@@ -157,6 +154,7 @@ public class MovieFragment extends Fragment {
 
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
                 intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_USER, user);
                 startActivity(intent);
 
             }

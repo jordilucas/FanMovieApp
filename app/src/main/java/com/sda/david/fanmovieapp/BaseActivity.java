@@ -73,7 +73,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 //        if(!user.isAdministrator())
             hideItem();
 
-        Fragment fragment = MovieFragment.newInstance();
+        Fragment fragment = MovieFragment.newInstance(user);
         commitFragment(fragment, MovieFragment.TAG);
     }
 
@@ -122,16 +122,16 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_movies) {
-            Fragment fragment = MovieFragment.newInstance();
+            Fragment fragment = MovieFragment.newInstance(user);
             commitFragment(fragment, MovieFragment.TAG);
         } else if (id == R.id.nav_movies_by_genre) {
-            Fragment fragment = MovieGenreFragment.newInstance();
+            Fragment fragment = MovieGenreFragment.newInstance(user);
             commitFragment(fragment, MovieGenreFragment.TAG);
         } else if (id == R.id.nav_favorites) {
             Fragment fragment = FavoritesFragment.newInstance(user);
             commitFragment(fragment, FavoritesFragment.TAG);
         } else if (id == R.id.nav_top10) {
-            Fragment fragment = Top10Fragment.newInstance();
+            Fragment fragment = Top10Fragment.newInstance(user);
             commitFragment(fragment, Top10Fragment.TAG);
         } else if (id == R.id.nav_register) {
             Fragment fragment = RegisterMovieFragment.newInstance();
