@@ -74,6 +74,9 @@ public class User implements Parcelable {
         return administrator;
     }
 
+    public void setFavoritesMovies(List<Long> favoritesMovies) {
+        this.favoritesMovies = favoritesMovies;
+    }
 
     @Override
     public int describeContents() {

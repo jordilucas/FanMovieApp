@@ -37,7 +37,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     NavigationView navigationView;
 
-    private User user;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.main_right_menu, menu);
         return true;
     }
@@ -102,12 +101,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             return true;
         }
