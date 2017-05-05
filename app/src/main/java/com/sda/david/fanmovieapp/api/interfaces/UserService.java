@@ -4,7 +4,6 @@ import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,10 +29,10 @@ public interface UserService {
     Call<String> removeMovie(@Query("id") Long id);
 
     @POST(URL_USER_ADD_FAVORITE)
-    Call<User> addFavorite(@Query("id") Long id, @Body Set<Long> idFavorites);
+    Call<User> addFavorite(@Query("id") Long id, @Body List<Long> idFavorites);
 
     @POST(URL_USER_REMOVE_FAVORITE)
-    Call<User> removeFavorite(@Query("id") Long id, @Body Set<Long> idFavorites);
+    Call<User> removeFavorite(@Query("id") Long id, @Body List<Long> idFavorites);
 
     @GET(URL_USER_FAVORITES)
     Call<List<Movie>> findFavorites(@Query("id") Long id);
