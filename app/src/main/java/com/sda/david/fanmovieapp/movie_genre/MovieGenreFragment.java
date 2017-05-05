@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
@@ -59,6 +60,14 @@ public class MovieGenreFragment extends Fragment {
         if(getArguments() != null) {
             user = getArguments().getParcelable(ARG_USER);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Updating user after actions in MovieDetailAct
+        //After put db, change this way do update
+        user = BaseActivity.user;
     }
 
     @Nullable
@@ -119,6 +128,8 @@ public class MovieGenreFragment extends Fragment {
         return moviesByGenre;
     }
 
+    //Not used anymore
+    //Remove after the tests
     private View.OnClickListener movieClickListener() {
         return new View.OnClickListener() {
             @Override

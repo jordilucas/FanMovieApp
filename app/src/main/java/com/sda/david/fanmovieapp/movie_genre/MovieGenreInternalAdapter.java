@@ -1,6 +1,7 @@
 package com.sda.david.fanmovieapp.movie_genre;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,10 +44,24 @@ public class MovieGenreInternalAdapter extends RecyclerView.Adapter<MovieGenreIn
         return new MovieViewHolder(view);
     }
 
+    private View.OnClickListener onClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = view.getId();
+
+                Intent intent = new Intent(ctx, MovieDetailActivity.class);
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movieList.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_USER, BaseActivity.user);
+                ctx.startActivity(intent);
+            }
+        };
+    }
+
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
-        holder.mainLayout.setOnClickListener(mClickListener);
+        holder.mainLayout.setOnClickListener(onClickListener());
         holder.mainLayout.setId(position);
 
         String urlMoviePoster = "!";
