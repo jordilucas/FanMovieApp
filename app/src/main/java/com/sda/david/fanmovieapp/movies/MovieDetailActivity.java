@@ -3,25 +3,41 @@ package com.sda.david.fanmovieapp.movies;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
+import com.sda.david.fanmovieapp.api.ServiceGenerator;
+import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.MovieGenre;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by david on 02/05/2017.
  */
 
 public class MovieDetailActivity extends AppCompatActivity {
+
+    public static final String TAG = "MovieDetailAct";
 
     public static final String ARG_MOVIE = "arg_movie";
     public static final String ARG_USER = "arg_user";
@@ -42,6 +58,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private Movie movie;
     private User user;
+
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 //TODO adicionar favorito
             }
         });
+
     }
 
     private void fillFieldsOnScreen() {
@@ -159,30 +178,105 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.main_right_menu, menu);
         return true;
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        changeMenuFavoriteIcon();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void changeMenuFavoriteIcon() {
+        MenuItem menuItem = menu.getItem(0);
+        if(user.getFavoritesMovies().contains(movie.get_id()))
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_black));
+        else
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_border_black));
+
+    }
+
+    private void toogleFavorite() {
+        List<Long> favoriteIds = user.getFavoritesMovies();
+        if(favoriteIds.contains(movie.get_id())) {
+            favoriteIds.remove(movie.get_id());
+            removeFavorite();
+        } else {
+            favoriteIds.add(movie.get_id());
+            addFavorite();
+        }
+
+        BaseActivity.user = user;
+
+        changeMenuFavoriteIcon();
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
+            toogleFavorite();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addFavorite() {
+        Call<User> call = ServiceGenerator.createService(UserService.class).addFavorite(user.getId(), Arrays.asList(movie.get_id()));
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()) {
+                    ShowMessageUtil.longSnackBar(tvGenres, getString(R.string.favorite_added));
+                } else {
+                    addFavoriteOnError();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                addFavoriteOnError();
+            }
+        });
+    }
+
+    private void addFavoriteOnError() {
+        user.getFavoritesMovies().remove(movie.get_id());
+        BaseActivity.user = user;
+        changeMenuFavoriteIcon();
+        ShowMessageUtil.longSnackBar(tvGenres, getString(R.string.favorite_not_added));
+    }
+
+    private void removeFavorite() {
+        Call<User> call = ServiceGenerator.createService(UserService.class).removeFavorite(user.getId(), Arrays.asList(movie.get_id()));
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()) {
+                    ShowMessageUtil.longSnackBar(tvGenres, getString(R.string.favorite_removed));
+                } else {
+                    removeFavoriteOnError();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                removeFavoriteOnError();
+            }
+        });
+    }
+
+    private void removeFavoriteOnError() {
+        user.getFavoritesMovies().add(movie.get_id());
+        BaseActivity.user = user;
+        changeMenuFavoriteIcon();
+        ShowMessageUtil.longSnackBar(tvGenres, getString(R.string.favorite_not_removed));
     }
 
     private void verifyVote() {

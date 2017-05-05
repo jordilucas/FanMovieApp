@@ -82,7 +82,7 @@ public class SignupFragment extends Fragment {
     }
 
     private void requestSignup() {
-        dialog.setMessage(getString(R.string.loding_signup));
+        dialog.setMessage(getString(R.string.loading_signup));
         dialog.show();
         User user = new User(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), switchAdm.isChecked());
         Call<User> call = ServiceGenerator.createService(UserService.class).signupUser(user);

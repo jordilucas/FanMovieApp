@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void requestLogin() {
-        dialog.setMessage(getString(R.string.loding_login));
+        dialog.setMessage(getString(R.string.loading_login));
         dialog.show();
         User user = new User(etLogin.getText().toString(), etPassword.getText().toString());
         Call<User> call = ServiceGenerator.createService(UserService.class, user.getUsername(), user.getPassword()).loginUser(user);
