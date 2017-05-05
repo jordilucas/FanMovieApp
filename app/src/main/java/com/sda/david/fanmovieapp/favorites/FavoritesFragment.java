@@ -79,8 +79,13 @@ public class FavoritesFragment extends Fragment {
         dialog.setIndeterminate(true);
         dialog.setCanceledOnTouchOutside(false);
 
-        userListFavorites();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        userListFavorites();
     }
 
     private void fillScreen() {
@@ -103,7 +108,7 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void userListFavorites() {
-        dialog.setMessage(getString(R.string.loding_login));
+        dialog.setMessage(getString(R.string.loading_favorites));
         dialog.show();
         Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites(user.getId());
         call.enqueue(new Callback<List<Movie>>() {
