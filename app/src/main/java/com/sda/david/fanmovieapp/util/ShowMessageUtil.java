@@ -16,7 +16,13 @@ public class ShowMessageUtil {
     }
 
     public static void longSnackBar(View view, String message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+        int duration = 5000;
+        Snackbar snackbar = Snackbar.make(view, message, duration);
+        View snackbarView = snackbar.getView();
+        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        snackbar.show();
     }
 
     public static void longSnackBarWithDuration(View view, String message, int duration) {
