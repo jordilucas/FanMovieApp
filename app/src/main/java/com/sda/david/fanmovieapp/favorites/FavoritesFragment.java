@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.sda.david.fanmovieapp.movies.MovieAdapter;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,11 +40,13 @@ public class FavoritesFragment extends Fragment {
     public static final String TAG = "FavoriteFrag";
     private static final String ARG_USER = "arg_user";
 
+    SearchView svMovie;
     RecyclerView rvMovies;
     private ProgressDialog dialog;
 
     private User user;
     List<Movie> movies;
+    List<Movie> moviesToShow;
 
     public static FavoritesFragment newInstance(User user) {
         FavoritesFragment fragment = new FavoritesFragment();
@@ -71,6 +75,10 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void initComponents(View rootView) {
+        svMovie = (SearchView) rootView.findViewById(R.id.sv_movie);
+        svMovie.setQueryHint(getString(R.string.search_the_movie));
+        svMovie.setIconifiedByDefault(false);
+        svMovie.setOnQueryTextListener(onQueryTextListener());
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -88,12 +96,48 @@ public class FavoritesFragment extends Fragment {
         //Updating user after actions in MovieDetailAct
         //After put db, change this way do update
         user = BaseActivity.user;
+        svMovie.setQuery("", false);
         userListFavorites();
     }
 
-    private void fillScreen() {
+    private SearchView.OnQueryTextListener onQueryTextListener() {
+        return new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                moviesToShow = returnSearchMovieList(query);
+                updateAdapter(moviesToShow);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                moviesToShow = returnSearchMovieList(newText);
+                updateAdapter(moviesToShow);
+
+                return false;
+            }
+        };
+    }
+
+    private List<Movie> returnSearchMovieList(String queryText) {
+        List<Movie> listToSearch = new ArrayList<>();
+        if(movies != null)
+        for(Movie movie : movies) {
+            if(movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
+                    || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
+                    && !listToSearch.contains(movie)) {
+                listToSearch.add(movie);
+            }
+        }
+
+        return listToSearch;
+    }
+
+    private void updateAdapter(List<Movie> movies) {
         MovieAdapter adapter = new MovieAdapter(getContext(), movies, movieClickListener());
         rvMovies.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private View.OnClickListener movieClickListener() {
@@ -103,7 +147,7 @@ public class FavoritesFragment extends Fragment {
                 int position = view.getId();
 
                 Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
+                intent.putExtra(MovieDetailActivity.ARG_MOVIE, moviesToShow.get(position));
                 intent.putExtra(MovieDetailActivity.ARG_USER, user);
                 startActivity(intent);
             }
@@ -121,7 +165,8 @@ public class FavoritesFragment extends Fragment {
                 if(response.isSuccessful()) {
                     movies = response.body();
                     movies.removeAll(Collections.<Movie>singleton(null));
-                    fillScreen();
+                    moviesToShow = movies;
+                    updateAdapter(moviesToShow);
                 } else {
                     ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
                 }
