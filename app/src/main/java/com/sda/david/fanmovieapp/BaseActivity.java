@@ -26,6 +26,7 @@ import com.sda.david.fanmovieapp.movie_genre.MovieGenreFragment;
 import com.sda.david.fanmovieapp.movies.MovieFragment;
 import com.sda.david.fanmovieapp.register_movie.RegisterMovieFragment;
 import com.sda.david.fanmovieapp.top10.Top10Fragment;
+import com.sda.david.fanmovieapp.util.PreferencesUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -167,6 +168,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<Void> call, Throwable t) {}
         });
 
+        PreferencesUtil preferencesUtil = PreferencesUtil.getInstance(this);
+        preferencesUtil.saveString("preferences_login", "");
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

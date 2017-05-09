@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.sda.david.fanmovieapp.login.LoginActivity;
+import com.sda.david.fanmovieapp.util.PreferencesUtil;
 
 /**
  * Created by david on 29/04/2017.
@@ -17,10 +18,15 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final PreferencesUtil preferencesUtil = PreferencesUtil.getInstance(this);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                callLoginScreen();
+                if(!preferencesUtil.getString("preferences_login", "").equals(""))
+                    callHomeScreen();
+                else
+                    callLoginScreen();
             }
         }, 2000);
 

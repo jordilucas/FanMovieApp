@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.sda.david.fanmovieapp.R;
+import com.sda.david.fanmovieapp.util.PreferencesUtil;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.Timer;

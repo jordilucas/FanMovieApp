@@ -16,6 +16,7 @@ import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.UserService;
 import com.sda.david.fanmovieapp.model.User;
+import com.sda.david.fanmovieapp.util.PreferencesUtil;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import retrofit2.Call;
@@ -29,6 +30,8 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     public static final String TAG = "LoginFrag";
+
+    private PreferencesUtil preferencesUtil;
 
     private EditText etLogin;
     private EditText etPassword;
@@ -81,6 +84,8 @@ public class LoginFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 dialog.dismiss();
                 if(response.isSuccessful()) {
+                    preferencesUtil = PreferencesUtil.getInstance(getContext());
+                    preferencesUtil.saveString("preferences_login", etLogin.getText().toString());
                     callHomeScreen(response.body());
                 } else {
                     if (response.code() == 501) {
