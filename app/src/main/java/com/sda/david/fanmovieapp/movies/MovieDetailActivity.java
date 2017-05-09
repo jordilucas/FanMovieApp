@@ -111,9 +111,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO adicionar favorito
+                toogleFavorite();
             }
         });
+
+        changeMenuFavoriteIcon();
 
     }
 
@@ -177,25 +179,27 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.main_right_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        changeMenuFavoriteIcon();
-        return super.onPrepareOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        this.menu = menu;
+//        getMenuInflater().inflate(R.menu.main_right_menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        changeMenuFavoriteIcon();
+//        return super.onPrepareOptionsMenu(menu);
+//    }
 
     private void changeMenuFavoriteIcon() {
-        MenuItem menuItem = menu.getItem(0);
+//        MenuItem menuItem = menu.getItem(0);
         if(user.getFavoritesMovies().contains(movie.get_id()))
-            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_black));
+//            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_black));
+            fab.setImageResource(R.mipmap.ic_favorite_black);
         else
-            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_border_black));
+//            menuItem.setIcon(ContextCompat.getDrawable(this, R.mipmap.ic_favorite_border_black));
+            fab.setImageResource(R.mipmap.ic_favorite_border_black);
 
     }
 
@@ -214,17 +218,17 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_favorite) {
-            toogleFavorite();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.action_favorite) {
+//            toogleFavorite();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void addFavorite() {
         Call<User> call = ServiceGenerator.createService(UserService.class).addFavorite(user.getId(), Arrays.asList(movie.get_id()));
