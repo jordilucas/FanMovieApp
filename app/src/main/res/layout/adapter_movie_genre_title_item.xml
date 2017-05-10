@@ -13,9 +13,9 @@
         android:id="@+id/tv_genre_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPrimary"
         />
 
 </LinearLayout>
