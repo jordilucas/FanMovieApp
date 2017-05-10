@@ -93,7 +93,7 @@ public class SignupFragment extends Fragment {
                 if(response.isSuccessful()) {
                     callHomeScreen(response.body());
                 } else {
-                    ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                    ServiceGenerator.verifyErrorResponse(response.code(), etLogin, getContext(), true, getActivity());
                 }
             }
 
