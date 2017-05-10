@@ -161,7 +161,6 @@ public class MovieFragment extends Fragment {
                 } else {
                     ServiceGenerator.verifyErrorResponse(response.code(), rvMovies, getContext(), false, getActivity());
                 }
-
             }
 
             @Override
