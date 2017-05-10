@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(contentViewPager);
         updateTabs();
 
-        if(!message.isEmpty())
+        if(message != null)
             ShowMessageUtil.longSnackBar(viewPager, getString(R.string.session_expired));
     }
 
