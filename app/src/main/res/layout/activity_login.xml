@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/gray_background"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     >
 
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        app:fillColor="@color/colorPrimaryDark"
+        app:fillColor="@color/colorAccent"
         app:pageColor="#FFFFFF"
         app:radius="6dp"
         />
@@ -32,9 +32,9 @@
         android:layout_gravity="center"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="@android:color/black"
+        app:tabTextColor="@android:color/white"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabIndicatorColor="@color/colorPrimaryDark" />
+        app:tabIndicatorColor="@color/colorAccent" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_login_content"

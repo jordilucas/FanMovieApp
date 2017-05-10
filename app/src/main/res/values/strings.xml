@@ -22,7 +22,7 @@
     <string name="password_hint">Senha</string>
     <string name="confirm_password_hint">Confirme a senha</string>
     <string name="text_login_button">LOGIN</string>
-    <string name="text_signuo_button">SIGNUP</string>
+    <string name="text_signup_button">SIGNUP</string>
     <string name="loading_login">Realizando login…</string>
     <string name="loading_signup">Realizando cadastro…</string>
     <string name="switch_adm">Administrador ?</string>

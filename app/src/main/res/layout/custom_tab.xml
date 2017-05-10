@@ -9,6 +9,7 @@
         android:id="@+id/tv_title_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:maxLines="1"
         android:ellipsize="end"
         android:gravity="center"
