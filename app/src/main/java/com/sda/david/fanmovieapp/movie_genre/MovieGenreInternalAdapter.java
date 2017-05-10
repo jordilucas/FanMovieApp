@@ -3,6 +3,7 @@ package com.sda.david.fanmovieapp.movie_genre;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,14 +90,14 @@ public class MovieGenreInternalAdapter extends RecyclerView.Adapter<MovieGenreIn
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout mainLayout;
+        CardView mainLayout;
         ImageView ivMoviePoster;
         TextView tvMovieTitle;
 
         MovieViewHolder(View itemView) {
             super(itemView);
 
-            mainLayout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
+            mainLayout = (CardView) itemView.findViewById(R.id.main_layout);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
             tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
         }
