@@ -169,7 +169,7 @@ public class FavoritesFragment extends Fragment {
                         moviesToShow = movies;
                         updateAdapter(moviesToShow);
                     } else {
-                        ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+                        ServiceGenerator.verifyErrorResponse(response.code(), rvMovies, getContext(), false, getActivity());
                     }
 
                 }
