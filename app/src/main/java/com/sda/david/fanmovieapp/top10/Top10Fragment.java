@@ -17,6 +17,7 @@ import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -104,14 +105,13 @@ public class Top10Fragment extends Fragment {
                     movies.removeAll(Collections.<Movie>singleton(null));
                     fillScreen();
                 } else {
-                    Log.d(TAG, "onError: ");
+                    ServiceGenerator.verifyErrorResponse(response.code(), rvMovies, getContext(), false, getActivity());
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                Log.d(TAG, "onFailure: ");
+                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
             }
         });
     }
