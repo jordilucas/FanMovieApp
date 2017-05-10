@@ -1,6 +1,11 @@
 package com.sda.david.fanmovieapp.api;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,6 +13,9 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.sda.david.fanmovieapp.R;
+import com.sda.david.fanmovieapp.login.LoginActivity;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -69,6 +77,25 @@ public class ServiceGenerator {
         }
 
         return retrofit.create(serviceClass);
+    }
+
+    public static void verifyErrorResponse(int errorCode, View view, Context ctx, boolean loginScreen, FragmentActivity activity) {
+        if (errorCode == 501) {
+            ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.unavailable_server));
+        } else if (errorCode == 503) {
+            ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.not_found_server));
+        } else if (errorCode == 401) {
+            if (loginScreen)
+                ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.invalid_login_or_password));
+            else {
+                Intent intent = new Intent(ctx, LoginActivity.class);
+                ctx.startActivity(intent);
+                activity.finish();
+            }
+        } else {
+            ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.something_went_wrong));
+        }
+
     }
 
 }

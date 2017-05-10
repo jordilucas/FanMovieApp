@@ -88,15 +88,7 @@ public class LoginFragment extends Fragment {
                     preferencesUtil.saveString("preferences_login", etLogin.getText().toString());
                     callHomeScreen(response.body());
                 } else {
-                    if (response.code() == 501) {
-                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.unavailable_server));
-                    } else if (response.code() == 503) {
-                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.not_found_server));
-                    } else if (response.code() == 401) {
-                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.invalid_login_or_password));
-                    } else {
-                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
-                    }
+                    ServiceGenerator.verifyErrorResponse(response.code(), etLogin, getContext(), true, getActivity());
                 }
             }
 
