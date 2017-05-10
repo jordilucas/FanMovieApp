@@ -57,6 +57,7 @@
     <string name="favorite_not_removed">Ocorreu algum erro ao tentar remover o filme dos seus favoritos</string>
 
     <!--Request Error-->
+    <string name="session_expired">Sua sessão expirou, por favor realize login novamente</string>
     <string name="unavailable_server">Servidor Indisponível</string>
     <string name="not_found_server">Não foi possível conectar com o servidor.</string>
     <string name="something_went_wrong">Aconteceu algum erro inesperado, por favor tente novamente</string>

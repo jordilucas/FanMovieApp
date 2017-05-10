@@ -23,6 +23,7 @@ import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.MovieGenre;
+import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,14 +159,14 @@ public class MovieFragment extends Fragment {
                     moviesToShow = movies = response.body();
                     updateAdapter(moviesToShow);
                 } else {
-                    Log.d(TAG, "onError: ");
+                    ServiceGenerator.verifyErrorResponse(response.code(), rvMovies, getContext(), false, getActivity());
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                Log.d(TAG, "onFailure: ");
+                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
             }
         });
     }

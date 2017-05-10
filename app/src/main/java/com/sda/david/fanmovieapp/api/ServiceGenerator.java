@@ -89,6 +89,7 @@ public class ServiceGenerator {
                 ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.invalid_login_or_password));
             else {
                 Intent intent = new Intent(ctx, LoginActivity.class);
+                intent.putExtra(LoginActivity.ARG_MESSAGE, ctx.getString(R.string.session_expired));
                 ctx.startActivity(intent);
                 activity.finish();
             }
