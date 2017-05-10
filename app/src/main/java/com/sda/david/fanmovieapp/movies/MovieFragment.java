@@ -83,14 +83,12 @@ public class MovieFragment extends Fragment {
         rvMovies.setHasFixedSize(true);
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
         rvMovies.setLayoutManager(mLinearLayoutManager);
-
-        findAllMovies();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        findAllMovies();
         //Updating user after actions in MovieDetailAct
         //After put db, change this way do update
         user = BaseActivity.user;
@@ -118,13 +116,14 @@ public class MovieFragment extends Fragment {
 
     private List<Movie> returnSearchMovieList(String queryText) {
         List<Movie> listToSearch = new ArrayList<>();
-        for(Movie movie : movies) {
-            if(movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
-                    || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
-                    && !listToSearch.contains(movie)) {
-                listToSearch.add(movie);
+        if(movies != null)
+            for(Movie movie : movies) {
+                if(movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
+                        || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
+                        && !listToSearch.contains(movie)) {
+                    listToSearch.add(movie);
+                }
             }
-        }
 
         return listToSearch;
     }
