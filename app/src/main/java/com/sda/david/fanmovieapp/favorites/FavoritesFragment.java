@@ -155,30 +155,32 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void userListFavorites() {
-        dialog.setMessage(getString(R.string.loading_favorites));
-        dialog.show();
-        Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites(user.getId());
-        call.enqueue(new Callback<List<Movie>>() {
-            @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                dialog.dismiss();
-                if(response.isSuccessful()) {
-                    movies = response.body();
-                    movies.removeAll(Collections.<Movie>singleton(null));
-                    moviesToShow = movies;
-                    updateAdapter(moviesToShow);
-                } else {
-                    ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+        if(user != null && user.getId() != null) {
+            dialog.setMessage(getString(R.string.loading_favorites));
+            dialog.show();
+            Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites(user.getId());
+            call.enqueue(new Callback<List<Movie>>() {
+                @Override
+                public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                    dialog.dismiss();
+                    if (response.isSuccessful()) {
+                        movies = response.body();
+                        movies.removeAll(Collections.<Movie>singleton(null));
+                        moviesToShow = movies;
+                        updateAdapter(moviesToShow);
+                    } else {
+                        ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+                    }
+
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
-                dialog.dismiss();
-                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Movie>> call, Throwable t) {
+                    dialog.dismiss();
+                    ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+                }
+            });
+        }
     }
 
 }
