@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
@@ -60,7 +62,7 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             user = getArguments().getParcelable(ARG_USER);
         }
     }
@@ -79,6 +81,9 @@ public class FavoritesFragment extends Fragment {
         svMovie.setQueryHint(getString(R.string.search_the_movie));
         svMovie.setIconifiedByDefault(false);
         svMovie.setOnQueryTextListener(onQueryTextListener());
+        EditText searchEditText = (EditText) svMovie.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        searchEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.white));
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -122,14 +127,14 @@ public class FavoritesFragment extends Fragment {
 
     private List<Movie> returnSearchMovieList(String queryText) {
         List<Movie> listToSearch = new ArrayList<>();
-        if(movies != null)
-        for(Movie movie : movies) {
-            if(movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
-                    || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
-                    && !listToSearch.contains(movie)) {
-                listToSearch.add(movie);
+        if (movies != null)
+            for (Movie movie : movies) {
+                if (movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
+                        || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
+                        && !listToSearch.contains(movie)) {
+                    listToSearch.add(movie);
+                }
             }
-        }
 
         return listToSearch;
     }
@@ -155,7 +160,7 @@ public class FavoritesFragment extends Fragment {
     }
 
     private void userListFavorites() {
-        if(user != null && user.getId() != null) {
+        if (user != null && user.getId() != null) {
             dialog.setMessage(getString(R.string.loading_favorites));
             dialog.show();
             Call<List<Movie>> call = ServiceGenerator.createService(UserService.class).findFavorites(user.getId());

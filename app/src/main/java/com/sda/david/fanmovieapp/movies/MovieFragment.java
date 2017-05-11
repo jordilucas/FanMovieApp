@@ -4,25 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.EditText;
 
 import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
-import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
+import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
-import com.sda.david.fanmovieapp.util.MovieGenre;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ public class MovieFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             user = getArguments().getParcelable(ARG_USER);
         }
     }
@@ -80,6 +77,9 @@ public class MovieFragment extends Fragment {
         svMovie.setQueryHint(getString(R.string.search_the_movie));
         svMovie.setIconifiedByDefault(false);
         svMovie.setOnQueryTextListener(onQueryTextListener());
+        EditText searchEditText = (EditText) svMovie.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        searchEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.white));
         rvMovies = (RecyclerView) rootView.findViewById(R.id.rv_movies);
         rvMovies.setHasFixedSize(true);
         LinearLayoutManager mLinearLayoutManager = new GridLayoutManager(getContext(), 3);
@@ -117,9 +117,9 @@ public class MovieFragment extends Fragment {
 
     private List<Movie> returnSearchMovieList(String queryText) {
         List<Movie> listToSearch = new ArrayList<>();
-        if(movies != null)
-            for(Movie movie : movies) {
-                if(movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
+        if (movies != null)
+            for (Movie movie : movies) {
+                if (movie.getTitle().toLowerCase().contains(queryText.toLowerCase())
                         || movie.getOriginalTitle().toLowerCase().contains(queryText.toLowerCase())
                         && !listToSearch.contains(movie)) {
                     listToSearch.add(movie);
@@ -155,7 +155,7 @@ public class MovieFragment extends Fragment {
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     moviesToShow = movies = response.body();
                     updateAdapter(moviesToShow);
                 } else {
