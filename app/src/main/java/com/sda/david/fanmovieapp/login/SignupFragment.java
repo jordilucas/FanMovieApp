@@ -94,7 +94,10 @@ public class SignupFragment extends Fragment {
                 if (response.isSuccessful()) {
                     signUpSuccess(response.body(), etLogin);
                 } else {
-                    ServiceGenerator.verifyErrorResponse(response.code(), etLogin, getContext(), true, getActivity());
+                    if(response.code() == 500)
+                        ShowMessageUtil.longSnackBar(etLogin, getString(R.string.username_already_registered));
+                    else
+                        ServiceGenerator.verifyErrorResponse(response.code(), etLogin, getContext(), true, getActivity());
                 }
             }
 
