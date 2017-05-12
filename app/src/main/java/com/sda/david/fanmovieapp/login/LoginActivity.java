@@ -5,9 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.sda.david.fanmovieapp.R;
-import com.sda.david.fanmovieapp.util.PreferencesUtil;
+import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -18,7 +19,7 @@ import java.util.TimerTask;
  * Created by david on 29/04/2017.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements SignupFragment.OnSignUpFragmentListener {
 
     public static final String ARG_MESSAGE = "message";
 
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(getIntent() != null)
+        if (getIntent() != null)
             message = getIntent().getStringExtra(ARG_MESSAGE);
 
         phrasesIntro = new String[]{"Seja bem vindo !! " +
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(contentViewPager);
         updateTabs();
 
-        if(message != null)
+        if (message != null)
             ShowMessageUtil.longSnackBar(viewPager, getString(R.string.session_expired));
     }
 
@@ -82,6 +83,12 @@ public class LoginActivity extends AppCompatActivity {
     public void pageSwitcher(int seconds) {
         timer = new Timer();
         timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000);
+    }
+
+    @Override
+    public void signUpSuccess(User user, View view) {
+        ShowMessageUtil.longSnackBar(view, getString(R.string.signup_success));
+        contentViewPager.setCurrentItem(0);
     }
 
     class RemindTask extends TimerTask {

@@ -1,7 +1,7 @@
 package com.sda.david.fanmovieapp.login;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.sda.david.fanmovieapp.BaseActivity;
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.UserService;
@@ -38,6 +37,8 @@ public class SignupFragment extends Fragment {
     private SwitchCompat switchAdm;
     private Button btSignup;
     private ProgressDialog dialog;
+
+    private OnSignUpFragmentListener mListener;
 
     public static SignupFragment newInstance() {
         return new SignupFragment();
@@ -75,7 +76,7 @@ public class SignupFragment extends Fragment {
 
     private void signUp() {
 
-        if(verifyFields()) {
+        if (verifyFields()) {
             requestSignup();
         }
 
@@ -90,8 +91,8 @@ public class SignupFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 dialog.dismiss();
-                if(response.isSuccessful()) {
-                    callHomeScreen(response.body());
+                if (response.isSuccessful()) {
+                    signUpSuccess(response.body(), etLogin);
                 } else {
                     ServiceGenerator.verifyErrorResponse(response.code(), etLogin, getContext(), true, getActivity());
                 }
@@ -100,44 +101,41 @@ public class SignupFragment extends Fragment {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 dialog.dismiss();
-                ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                ShowMessageUtil.longSnackBar(etLogin, t.getMessage());
             }
         });
     }
 
-    private void callHomeScreen(User user) {
-
-        Intent intent = new Intent(getContext(), BaseActivity.class);
-        intent.putExtra(BaseActivity.ARG_USER, user);
-        startActivity(intent);
-//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
-        getActivity().finish();
+    public void signUpSuccess(User user, View view) {
+        if (mListener != null) {
+            mListener.signUpSuccess(user, view);
+        }
     }
 
     private boolean verifyFields() {
         boolean validFields = true;
 
-        if(etName.getText().toString().matches("")) {
+        if (etName.getText().toString().matches("")) {
             etName.setError(getString(R.string.empty_name));
             validFields = false;
         }
 
-        if(etLogin.getText().toString().matches("")) {
+        if (etLogin.getText().toString().matches("")) {
             etLogin.setError(getString(R.string.empty_login));
             validFields = false;
         }
 
-        if(etPassword.getText().toString().matches("")) {
+        if (etPassword.getText().toString().matches("")) {
             etPassword.setError(getString(R.string.empty_password));
             validFields = false;
         }
 
-        if(etConfirmPassword.getText().toString().matches("")) {
+        if (etConfirmPassword.getText().toString().matches("")) {
             etConfirmPassword.setError(getString(R.string.empty_confirm_password));
             validFields = false;
         }
 
-        if(!etPassword.getText().toString().matches("") && !etConfirmPassword.getText().toString().matches("")
+        if (!etPassword.getText().toString().matches("") && !etConfirmPassword.getText().toString().matches("")
                 && !etPassword.getText().toString().matches(etConfirmPassword.getText().toString())) {
             etPassword.setError(getString(R.string.password_not_compatible));
             etConfirmPassword.setError(getString(R.string.password_not_compatible));
@@ -146,6 +144,26 @@ public class SignupFragment extends Fragment {
 
         return validFields;
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnSignUpFragmentListener) {
+            mListener = (OnSignUpFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnSignUpFragmentListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnSignUpFragmentListener {
+        void signUpSuccess(User user, View view);
     }
 
 }

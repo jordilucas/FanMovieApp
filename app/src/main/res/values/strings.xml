@@ -27,6 +27,9 @@
     <string name="loading_signup">Realizando cadastro…</string>
     <string name="switch_adm">Administrador ?</string>
 
+    <!--Signup Screen-->
+    <string name="signup_success">Cadastro realizado com sucesso, faça login com o seu novo cadastro</string>
+
     <!--Movie List Screen-->
     <string name="search_the_movie">Busque o filme</string>
 
@@ -49,6 +52,7 @@
     <string name="empty_password">O campo senha não deve estar vazio</string>
     <string name="empty_confirm_password">O campo confirmar senha não deve estar vazio</string>
     <string name="password_not_compatible">Os campos de senha e confirmar senha devem ser iguais</string>
+    <string name="username_already_registered">Usuário já cadastrado</string>
 
     <!--Movie Detail Screen Error-->
     <string name="favorite_added">Filme adicionado aos favoritos</string>
