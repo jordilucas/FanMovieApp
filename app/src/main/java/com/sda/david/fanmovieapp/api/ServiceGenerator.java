@@ -99,4 +99,11 @@ public class ServiceGenerator {
 
     }
 
+    public static void verifyFailedConnection(Throwable t, View view, Context ctx) {
+        if (t.getMessage().contains("failed to connect"))
+            ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.unavailable_server));
+        else
+            ShowMessageUtil.longSnackBar(view, ctx.getString(R.string.something_went_wrong));
+    }
+
 }

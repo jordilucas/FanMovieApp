@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class SignupFragment extends Fragment {
 
-    public static final String TAG = "FavoriteFrag";
+    public static final String TAG = "SignupFrag";
 
     private EditText etName;
     private EditText etLogin;
@@ -104,7 +104,7 @@ public class SignupFragment extends Fragment {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 dialog.dismiss();
-                ShowMessageUtil.longSnackBar(etLogin, t.getMessage());
+                ServiceGenerator.verifyFailedConnection(t, etLogin, getContext());
             }
         });
     }

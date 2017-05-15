@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void login() {
-        if(verifyFields()) {
+        if (verifyFields()) {
             requestLogin();
         }
     }
@@ -83,7 +83,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 dialog.dismiss();
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     preferencesUtil = PreferencesUtil.getInstance(getContext());
                     preferencesUtil.saveString("preferences_login", etLogin.getText().toString());
                     callHomeScreen(response.body());
@@ -95,7 +95,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 dialog.dismiss();
-                ShowMessageUtil.longSnackBar(etLogin, getString(R.string.something_went_wrong));
+                ServiceGenerator.verifyFailedConnection(t, etLogin, getContext());
             }
         });
     }
@@ -105,19 +105,18 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(getContext(), BaseActivity.class);
         intent.putExtra(BaseActivity.ARG_USER, user);
         startActivity(intent);
-//        overridePendingTransition(R.anim.res_anim_fadein, R.anim.res_anim_fadeout);
         getActivity().finish();
     }
 
     private boolean verifyFields() {
         boolean validFields = true;
 
-        if(etLogin.getText().toString().matches("")) {
+        if (etLogin.getText().toString().matches("")) {
             etLogin.setError(getString(R.string.empty_login));
             validFields = false;
         }
 
-        if(etPassword.getText().toString().matches("")) {
+        if (etPassword.getText().toString().matches("")) {
             etPassword.setError(getString(R.string.empty_password));
             validFields = false;
         }
