@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.sda.david.fanmovieapp.R;
-import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.api.ServiceGenerator;
+import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
 import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
@@ -53,7 +52,7 @@ public class Top10Fragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             user = getArguments().getParcelable(ARG_USER);
         }
     }
@@ -100,7 +99,7 @@ public class Top10Fragment extends Fragment {
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     movies = response.body();
                     movies.removeAll(Collections.<Movie>singleton(null));
                     fillScreen();
@@ -111,7 +110,7 @@ public class Top10Fragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+                ServiceGenerator.verifyFailedConnection(t, rvMovies, getContext());
             }
         });
     }

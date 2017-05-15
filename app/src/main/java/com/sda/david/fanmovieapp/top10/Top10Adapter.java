@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,11 +52,11 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
 
         Movie currentMovie = movieList.get(position);
 
-        if(currentMovie != null) {
-            if(currentMovie.getPosterPath() != null)
+        if (currentMovie != null) {
+            if (currentMovie.getPosterPath() != null)
                 urlMoviePoster = currentMovie.getPosterPath();
 
-            if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
+            if (!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
                 urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
             Picasso
@@ -65,24 +64,23 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
                     .load(urlMoviePoster)
                     .into(holder.ivMoviePoster);
 
-            if(currentMovie.getTitle() != null)
+            if (currentMovie.getTitle() != null)
                 holder.tvMovieTitle.setText(currentMovie.getTitle());
 
-            if(currentMovie.getGenreIds() != null) {
+            if (currentMovie.getGenreIds() != null) {
                 String genres = "(";
 
-                for(Long genreId : movieList.get(position).getGenreIds()) {
+                for (Long genreId : movieList.get(position).getGenreIds()) {
                     genres += MovieGenre.getGenreNameById(genreId) + ", ";
                 }
                 genres = genres.substring(0, genres.length() - 2) + ")";
                 holder.tvMovieGenres.setText(genres);
             }
 
-            if(currentMovie.getVoteAverage() != 0f)
+            if (currentMovie.getVoteAverage() != 0f)
                 holder.tvMovieNote.setText(String.valueOf(movieList.get(position).getVoteAverage()));
 
         }
-
 
     }
 
