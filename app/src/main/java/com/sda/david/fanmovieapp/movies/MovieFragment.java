@@ -165,7 +165,7 @@ public class MovieFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                ShowMessageUtil.longSnackBar(rvMovies, getString(R.string.something_went_wrong));
+                ServiceGenerator.verifyFailedConnection(t, rvMovies, getContext());
             }
         });
     }
