@@ -13,9 +13,16 @@
         android:layout_width="90dp"
         android:layout_height="135dp"
         android:layout_marginTop="8dp"
-        android:background="@color/gray"
         android:layout_centerHorizontal="true"
         android:contentDescription="@null"/>
+
+    <ProgressBar
+        android:id="@+id/pb_image"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        />
 
     <TextView
         android:id="@+id/tv_movie_title"

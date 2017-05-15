@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -56,10 +58,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
             urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
+        final ProgressBar progressView = holder.progressBar;
         Picasso
             .with(ctx)
             .load(urlMoviePoster)
-            .into(holder.ivMoviePoster);
+            .into(holder.ivMoviePoster, new Callback() {
+                @Override
+                public void onSuccess() {
+                    progressView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError() {}
+            });
 
         if(movieList.get(position) != null && movieList.get(position).getTitle() != null)
             holder.tvMovieTitle.setText(movieList.get(position).getTitle());
@@ -79,6 +90,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView ivMoviePoster;
         TextView tvMovieTitle;
         TextView tvMovieNote;
+        ProgressBar progressBar;
 
         MovieViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +99,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
             tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
             tvMovieNote = (TextView) itemView.findViewById(R.id.tv_movie_note);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.pb_image);
         }
     }
 }
