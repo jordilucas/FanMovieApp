@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.R;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.util.MovieGenre;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -59,10 +61,19 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
             if (!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
                 urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
+            final ProgressBar progressView = holder.progressBar;
             Picasso
                     .with(ctx)
                     .load(urlMoviePoster)
-                    .into(holder.ivMoviePoster);
+                    .into(holder.ivMoviePoster, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {}
+                    });
 
             if (currentMovie.getTitle() != null)
                 holder.tvMovieTitle.setText(currentMovie.getTitle());
@@ -96,6 +107,7 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
         TextView tvMovieTitle;
         TextView tvMovieGenres;
         TextView tvMovieNote;
+        ProgressBar progressBar;
 
         MovieViewHolder(View itemView) {
             super(itemView);
@@ -105,6 +117,7 @@ public class Top10Adapter extends RecyclerView.Adapter<Top10Adapter.MovieViewHol
             tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
             tvMovieGenres = (TextView) itemView.findViewById(R.id.tv_movie_genres);
             tvMovieNote = (TextView) itemView.findViewById(R.id.tv_movie_note);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.pb_image);
         }
     }
 }

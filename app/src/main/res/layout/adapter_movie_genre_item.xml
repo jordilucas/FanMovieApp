@@ -18,6 +18,14 @@
             android:layout_centerHorizontal="true"
             android:contentDescription="@null"/>
 
+        <ProgressBar
+            android:id="@+id/pb_image"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="65dp"
+            android:layout_centerHorizontal="true"
+            />
+
         <TextView
             android:id="@+id/tv_movie_title"
             android:layout_width="wrap_content"
