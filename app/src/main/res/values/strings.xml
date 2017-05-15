@@ -7,6 +7,11 @@
     <string name="action_settings">Settings</string>
     <string name="action_favorite">Salvar filme</string>
 
+    <!--Titles-->
+    <string name="movies_title_screen">Filmes</string>
+    <string name="genre_title_screen">Gêneros</string>
+    <string name="favorite_title_screen">Favoritos</string>
+    <string name="top10_title_screen">Top10</string>
 
     <!--Navigation View-->
     <string name="nav_movies_title">Filmes</string>

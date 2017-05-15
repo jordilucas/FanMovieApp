@@ -76,6 +76,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         Fragment fragment = MovieFragment.newInstance(user);
         commitFragment(fragment, MovieFragment.TAG);
+        getSupportActionBar().setTitle(getString(R.string.movies_title_screen));
     }
 
     @Override
@@ -120,15 +121,19 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_movies) {
             Fragment fragment = MovieFragment.newInstance(user);
             commitFragment(fragment, MovieFragment.TAG);
+            getSupportActionBar().setTitle(getString(R.string.movies_title_screen));
         } else if (id == R.id.nav_movies_by_genre) {
             Fragment fragment = MovieGenreFragment.newInstance(user);
             commitFragment(fragment, MovieGenreFragment.TAG);
+            getSupportActionBar().setTitle(getString(R.string.genre_title_screen));
         } else if (id == R.id.nav_favorites) {
             Fragment fragment = FavoritesFragment.newInstance(user);
             commitFragment(fragment, FavoritesFragment.TAG);
+            getSupportActionBar().setTitle(getString(R.string.favorite_title_screen));
         } else if (id == R.id.nav_top10) {
             Fragment fragment = Top10Fragment.newInstance(user);
             commitFragment(fragment, Top10Fragment.TAG);
+            getSupportActionBar().setTitle(getString(R.string.top10_title_screen));
         } else if (id == R.id.nav_register) {
             Fragment fragment = RegisterMovieFragment.newInstance();
             commitFragment(fragment, RegisterMovieFragment.TAG);
