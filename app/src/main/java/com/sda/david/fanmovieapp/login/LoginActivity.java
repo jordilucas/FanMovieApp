@@ -43,10 +43,13 @@ public class LoginActivity extends AppCompatActivity implements SignupFragment.O
         if (getIntent() != null)
             message = getIntent().getStringExtra(ARG_MESSAGE);
 
-        phrasesIntro = new String[]{"Seja bem vindo !! " +
-                "\n Procure os seus filmes favoritos aqui",
-                "Salve todos para ter acesso fácil as suas informações no futuro",
-                "Veja sempre quais sãos os top 10 filmes atuais"};
+        phrasesIntro = new String[]{"Seja bem vindo !!" +
+                "\n Procure filmes em nosso acervo digital",
+                "Marque como favorito e crie sua lista pessoal dos filmes que você mais gostar",
+                "Veja quais filmes estão entre os top 10",
+                "Procure filmes por gênero de uma maneira divertida" +
+                "\n.. e muito mais!",
+                "Crie agora o seu cadastro e aproveite !"};
 
         initComponents();
     }
@@ -99,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements SignupFragment.O
             runOnUiThread(new Runnable() {
                 public void run() {
 
-                    if (page > 2) {
+                    if (page > 4) {
                         page = 0;
                         viewPager.setCurrentItem(page);
                         timer.cancel();
