@@ -2,13 +2,12 @@ package com.sda.david.fanmovieapp.movie_genre;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sda.david.fanmovieapp.BaseActivity;
@@ -29,12 +28,10 @@ public class MovieGenreInternalAdapter extends RecyclerView.Adapter<MovieGenreIn
     private List<Movie> movieList;
     private Context ctx;
     private LayoutInflater mLayoutInflater;
-    private View.OnClickListener mClickListener;
 
-    public MovieGenreInternalAdapter(Context ctx, List<Movie> movieList, View.OnClickListener mClickListener) {
+    public MovieGenreInternalAdapter(Context ctx, List<Movie> movieList) {
         this.ctx = ctx;
         this.movieList = movieList;
-        this.mClickListener = mClickListener;
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -67,18 +64,18 @@ public class MovieGenreInternalAdapter extends RecyclerView.Adapter<MovieGenreIn
 
         String urlMoviePoster = "!";
 
-        if(movieList.get(position) != null && movieList.get(position).getPosterPath() != null)
+        if (movieList.get(position) != null && movieList.get(position).getPosterPath() != null)
             urlMoviePoster = movieList.get(position).getPosterPath();
 
-        if(!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
+        if (!urlMoviePoster.isEmpty() && urlMoviePoster.charAt(0) == '/')
             urlMoviePoster = "http://image.tmdb.org/t/p/w92" + urlMoviePoster;
 
         Picasso
-            .with(ctx)
-            .load(urlMoviePoster)
-            .into(holder.ivMoviePoster);
+                .with(ctx)
+                .load(urlMoviePoster)
+                .into(holder.ivMoviePoster);
 
-        if(movieList.get(position) != null && movieList.get(position).getTitle() != null)
+        if (movieList.get(position) != null && movieList.get(position).getTitle() != null)
             holder.tvMovieTitle.setText(movieList.get(position).getTitle());
 
     }

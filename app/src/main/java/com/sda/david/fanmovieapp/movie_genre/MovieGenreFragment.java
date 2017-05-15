@@ -1,13 +1,10 @@
 package com.sda.david.fanmovieapp.movie_genre;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +16,7 @@ import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.MovieTypeItem;
 import com.sda.david.fanmovieapp.model.User;
-import com.sda.david.fanmovieapp.movies.MovieAdapter;
-import com.sda.david.fanmovieapp.movies.MovieDetailActivity;
 import com.sda.david.fanmovieapp.util.MovieGenre;
-import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +52,7 @@ public class MovieGenreFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             user = getArguments().getParcelable(ARG_USER);
         }
     }
@@ -96,7 +90,7 @@ public class MovieGenreFragment extends Fragment {
         List<MovieTypeItem> movieTypeItemList = new ArrayList<>();
         MovieTypeItem movieTypeItem;
 
-        for(Long genreId : genresIds) {
+        for (Long genreId : genresIds) {
             //Getting name of current genre
             String genreName = MovieGenre.getGenreNameById(genreId);
 
@@ -104,7 +98,7 @@ public class MovieGenreFragment extends Fragment {
             List<Movie> moviesByGenre = getMoviesByGenre(movies, genreId);
 
             //Filling list of items to external recyclerView
-            if(!moviesByGenre.isEmpty()) {
+            if (!moviesByGenre.isEmpty()) {
                 movieTypeItem = new MovieTypeItem(genreName, MovieTypeItem.Type.TITLE);
                 movieTypeItemList.add(movieTypeItem);
                 movieTypeItem = new MovieTypeItem(moviesByGenre, MovieTypeItem.Type.CONTENT);
@@ -112,7 +106,7 @@ public class MovieGenreFragment extends Fragment {
             }
         }
 
-        MovieGenreAdapter adapter = new MovieGenreAdapter(getContext(), movieTypeItemList, movieClickListener());
+        MovieGenreAdapter adapter = new MovieGenreAdapter(getContext(), movieTypeItemList);
         rvMoviesGenre.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -120,8 +114,8 @@ public class MovieGenreFragment extends Fragment {
     private List<Movie> getMoviesByGenre(List<Movie> movies, Long genreId) {
         List<Movie> moviesByGenre = new ArrayList<>();
 
-        for(Movie movie : movies) {
-            if(movie.getGenreIds().contains(genreId)) {
+        for (Movie movie : movies) {
+            if (movie.getGenreIds().contains(genreId)) {
                 moviesByGenre.add(movie);
             }
         }
@@ -129,29 +123,12 @@ public class MovieGenreFragment extends Fragment {
         return moviesByGenre;
     }
 
-    //Not used anymore
-    //Remove after the tests
-    private View.OnClickListener movieClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = view.getId();
-
-                Intent intent = new Intent(getContext(), MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.ARG_MOVIE, movies.get(position));
-                intent.putExtra(MovieDetailActivity.ARG_USER, user);
-                startActivity(intent);
-
-            }
-        };
-    }
-
     private void findAllMovies() {
         Call<List<Movie>> call = ServiceGenerator.createService(MovieService.class).findAll();
         call.enqueue(new Callback<List<Movie>>() {
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     movies = response.body();
                     updateAdapter(movies);
                 } else {
@@ -161,7 +138,7 @@ public class MovieGenreFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Movie>> call, Throwable t) {
-                ShowMessageUtil.longSnackBar(rvMoviesGenre, getString(R.string.something_went_wrong));
+                ServiceGenerator.verifyFailedConnection(t, rvMoviesGenre, getContext());
             }
         });
     }

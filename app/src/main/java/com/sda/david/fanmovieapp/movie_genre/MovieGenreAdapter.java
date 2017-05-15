@@ -1,24 +1,17 @@
 package com.sda.david.fanmovieapp.movie_genre;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.sda.david.fanmovieapp.R;
-import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.MovieTypeItem;
-import com.sda.david.fanmovieapp.util.MovieGenre;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,19 +24,17 @@ public class MovieGenreAdapter extends RecyclerView.Adapter<MovieGenreAdapter.Mo
     private List<MovieTypeItem> movieTypeItems;
     private Context ctx;
     private LayoutInflater mLayoutInflater;
-    private View.OnClickListener mClickListener;
 
-    public MovieGenreAdapter(Context ctx, List<MovieTypeItem> movieTypeItems, View.OnClickListener mClickListener) {
+    public MovieGenreAdapter(Context ctx, List<MovieTypeItem> movieTypeItems) {
         this.ctx = ctx;
         this.movieTypeItems = movieTypeItems;
-        this.mClickListener = mClickListener;
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if(viewType == 0) {
+        if (viewType == 0) {
             view = mLayoutInflater.inflate(R.layout.adapter_movie_genre_title_item, parent, false);
             return new TitleViewHolder(view);
         } else {
@@ -54,7 +45,7 @@ public class MovieGenreAdapter extends RecyclerView.Adapter<MovieGenreAdapter.Mo
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        if(holder.getItemViewType() == 0) {
+        if (holder.getItemViewType() == 0) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
             titleViewHolder.tvGenreTitle.setText(movieTypeItems.get(position).getGenreTitle());
         } else {
@@ -65,7 +56,7 @@ public class MovieGenreAdapter extends RecyclerView.Adapter<MovieGenreAdapter.Mo
 //            LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(ctx);
 //            mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             contentViewHolder.rvMoviesGenreInsider.setLayoutManager(mLinearLayoutManager);
-            MovieGenreInternalAdapter adapter = new MovieGenreInternalAdapter(ctx, movieTypeItems.get(position).getMovies(), mClickListener);
+            MovieGenreInternalAdapter adapter = new MovieGenreInternalAdapter(ctx, movieTypeItems.get(position).getMovies());
             contentViewHolder.rvMoviesGenreInsider.setAdapter(adapter);
         }
 
@@ -78,7 +69,7 @@ public class MovieGenreAdapter extends RecyclerView.Adapter<MovieGenreAdapter.Mo
 
     @Override
     public int getItemViewType(int position) {
-        if(movieTypeItems.get(position).getType().equals(MovieTypeItem.Type.TITLE)) {
+        if (movieTypeItems.get(position).getType().equals(MovieTypeItem.Type.TITLE)) {
             return 0;
         } else {
             return 1;

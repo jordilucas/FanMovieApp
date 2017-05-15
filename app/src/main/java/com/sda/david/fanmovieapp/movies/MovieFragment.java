@@ -20,7 +20,6 @@ import com.sda.david.fanmovieapp.api.ServiceGenerator;
 import com.sda.david.fanmovieapp.api.interfaces.MovieService;
 import com.sda.david.fanmovieapp.model.Movie;
 import com.sda.david.fanmovieapp.model.User;
-import com.sda.david.fanmovieapp.util.ShowMessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
